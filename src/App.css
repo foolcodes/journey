@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+.app-container {
+  height: 100vh;
+  width: 100%;
+  background-image: url("https://img.freepik.com/premium-photo/blur-background_558873-824.jpg?ga=GA1.1.1494068920.1740732469&semt=ais_hybrid");
+  background-size: cover;
+}
