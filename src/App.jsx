@@ -1,7 +1,14 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const App = () => {
-  return <div className="app-container"></div>;
-};
+import Home from "./components/Home";
+import Login from "./components/Login";
 
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </BrowserRouter>
+);
 export default App;
