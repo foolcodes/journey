@@ -5,8 +5,8 @@ import { FaCode } from "react-icons/fa";
 
 const Header = () => {
   const navigate = useNavigate();
-  const onClickNavigate = () => {
-    navigate("/login");
+  const onClickNavigateToRegister = () => {
+    navigate("/register");
   };
   return (
     <div className="flex justify-between items-center p-4 font-sans-serif">
@@ -17,7 +17,7 @@ const Header = () => {
       <div className="flex">
         <ShinyButton title={"Login"} />
         <button
-          onClick={onClickNavigate}
+          onClick={onClickNavigateToRegister}
           className="mr-4 ml-4 text-white cursor-pointer bg-indigo-600 p-2 rounded-2xl w-23 font-medium button"
         >
           Signup{" "}

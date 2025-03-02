@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const ShinyButton = (props) => {
   const navigate = useNavigate();
   const { title } = props;
-  const onClickNavigate = () => {
+  const onClickNavigateToLogin = () => {
     navigate("/login");
   };
   return (
@@ -28,7 +28,7 @@ const ShinyButton = (props) => {
         },
       }}
       className="px-6 py-2 rounded-md relative radial-gradient cursor-pointer"
-      onClick={onClickNavigate}
+      onClick={onClickNavigateToLogin}
     >
       <span className="text-neutral-100 tracking-wide font-medium h-full w-full block relative linear-mask font-sans-serif">
         {title}
