@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const ShinyButton = (props) => {
+  const navigate = useNavigate();
   const { title } = props;
-  console.log(props);
+  const onClickNavigate = () => {
+    navigate("/login");
+  };
   return (
     <motion.button
       initial={{ "--x": "100%", scale: 1 }}
@@ -24,6 +28,7 @@ const ShinyButton = (props) => {
         },
       }}
       className="px-6 py-2 rounded-md relative radial-gradient cursor-pointer"
+      onClick={onClickNavigate}
     >
       <span className="text-neutral-100 tracking-wide font-medium h-full w-full block relative linear-mask font-sans-serif">
         {title}

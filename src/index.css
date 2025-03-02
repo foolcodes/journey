@@ -57,4 +57,16 @@
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500;
   }
+
+  .input-box {
+    @apply w-[300px] border-none bg-gray-100 p-3 pe-10 ps-4 focus:outline-none rounded-xl text-sm;
+  }
+
+  .input-icon {
+    @apply absolute right-[10px] top-[30%] text-[#888] font-medium;
+  }
+}
+
+.bg-aurora {
+  background: linear-gradient(180deg, #3b4252, #4a4e69, #656996, #8181b3);
 }

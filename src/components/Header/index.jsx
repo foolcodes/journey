@@ -1,7 +1,13 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import ShinyButton from "../ShinnyButton/ShinyButton";
 import { FaCode } from "react-icons/fa";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const onClickNavigate = () => {
+    navigate("/login");
+  };
   return (
     <div className="flex justify-between items-center p-4 font-sans-serif">
       <div className="flex text-white justify-center items-center ml-1 cursor-pointer">
@@ -10,7 +16,10 @@ const Header = () => {
       </div>
       <div className="flex">
         <ShinyButton title={"Login"} />
-        <button className="mr-4 ml-4 text-white cursor-pointer bg-indigo-600 p-2 rounded-2xl w-23 font-medium button">
+        <button
+          onClick={onClickNavigate}
+          className="mr-4 ml-4 text-white cursor-pointer bg-indigo-600 p-2 rounded-2xl w-23 font-medium button"
+        >
           Signup{" "}
         </button>
       </div>
