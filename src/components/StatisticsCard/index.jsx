@@ -23,7 +23,7 @@ const StatisticsCard = ({ itemDetails }) => {
           ></span>
           {title}
         </span>
-        <p className="mt-1 text-3xl font-semibold text-gray-100">{value}</p>
+        <p className="mt-1 text-2xl font-semibold text-gray-100">{value}</p>
       </div>
     </motion.div>
   );

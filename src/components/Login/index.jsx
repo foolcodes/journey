@@ -28,16 +28,7 @@ const Login = () => {
                 placeholder="Username"
                 className="input-box"
               />
-              <FaUser className="input-icon" />
-            </div>
-            <div className="flex relative mb-[30px]">
-              <input
-                type="text"
-                required
-                placeholder="Email"
-                className="input-box"
-              />
-              <FaEnvelope className="input-icon" />
+              <FaUser className="input-icon top-3.5" />
             </div>
 
             <div className="flex relative mb-[30px]">
@@ -47,9 +38,12 @@ const Login = () => {
                 placeholder="Password"
                 className="input-box"
               />
-              <FaLock className="input-icon" />
+              <FaLock className="input-icon top-3.5" />
             </div>
-            <button className="bg-[#512da8] w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold">
+            <button
+              onClick={() => navigate("/overview", { replace: true })}
+              className="bg-[#512da8] w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold"
+            >
               Login
             </button>
           </form>
