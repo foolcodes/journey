@@ -9,7 +9,7 @@ AOS.init({
 
 const Home = () => {
   return (
-    <div className="bg-[#080C18] h-screen flex flex-col justify-between font-sans-serif">
+    <div className="bg-[#080C18] h-screen w-screen flex flex-col justify-between font-sans-serif">
       <div data-aos="fade-down">
         <Header />
       </div>

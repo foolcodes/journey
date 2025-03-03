@@ -9,7 +9,7 @@ const Header = () => {
     navigate("/register");
   };
   return (
-    <div className="flex justify-between items-center p-4 font-sans-serif">
+    <div className="w-screen flex justify-between items-center p-4 font-sans-serif">
       <div className="flex text-white justify-center items-center ml-1 cursor-pointer">
         <FaCode className="text-4xl mr-3" />
         <h1 className="text-3xl font-extrabold gradient-text">Journey</h1>

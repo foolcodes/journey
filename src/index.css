@@ -65,6 +65,10 @@
   .input-icon {
     @apply absolute right-[10px] top-[30%] text-[#888] font-medium;
   }
+
+  body {
+    @apply font-sans-serif;
+  }
 }
 
 .bg-aurora {
