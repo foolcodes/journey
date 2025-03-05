@@ -9,12 +9,12 @@ AOS.init({
 
 const Home = () => {
   return (
-    <div className="bg-[#080C18] h-screen w-screen flex flex-col justify-between font-sans-serif">
+    <div className="bg-[#080C18] h-screen w-screen flex flex-col justify center font-sans-serif">
       <div data-aos="fade-down">
         <Header />
       </div>
       <div
-        className="flex flex-col justify-center items-center"
+        className="h-full flex flex-col justify-center items-center"
         data-aos="fade-up"
       >
         {" "}
@@ -29,7 +29,6 @@ const Home = () => {
           <span className="gradient-text">inspire others</span>.
         </p>
       </div>
-      <div></div>
     </div>
   );
 };
