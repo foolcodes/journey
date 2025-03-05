@@ -74,3 +74,25 @@
 .bg-aurora {
   background: linear-gradient(180deg, #3b4252, #4a4e69, #656996, #8181b3);
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.5); /* Semi-transparent gray */
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(
+    128,
+    128,
+    128,
+    0.7
+  ); /* Slightly more visible on hover */
+}

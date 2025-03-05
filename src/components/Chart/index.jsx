@@ -40,7 +40,7 @@ const Chart = () => {
   return (
     <div className="bg-[#111827] ps-0 p-5 border border-gray-700 rounded-md">
       <h1 className="text-gray-50 text-xl ps-14 pb-10">Performance</h1>
-      <div style={{ width: "100%", height: "250px" }}>
+      <div style={{ width: "100%", height: "38vh" }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={DAILYDATA}>
             <CartesianGrid

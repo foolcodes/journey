@@ -10,7 +10,7 @@ const Register = () => {
     navigate("/login", { replace: true });
   };
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
+    <div className="flex justify-center items-center h-screen w-full bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
       <div
         data-aos="fade-down"
         className="flex shadow-xl h-[450px] w-[750px] relative bg-white rounded-3xl overflow-hidden"
