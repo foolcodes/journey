@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Overview from "./components/Overview";
-import Main from "./components/Main";
+import Challenges from "./components/Challenges";
 import Sidebar from "./components/Sidebar";
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/overview" element={<Overview />} />
-        <Route exact path="/main" element={<Main />} />
+        <Route exact path="/challenges" element={<Challenges />} />
       </Routes>
     </div>
   );

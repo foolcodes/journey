@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Chart from "../Chart";
 import StatisticsCard from "../StatisticsCard";
-import Modal from "../Modal";
+import DayModal from "../DayModal";
 import ShinyButton from "../ShinnyButton/ShinyButton";
 
 const details = [
@@ -37,7 +37,7 @@ const Overview = () => {
         ))}
       </div>
       <Chart />
-      {modal && <Modal onClose={() => toggleModal(false)} />}
+      {modal && <DayModal onClose={() => toggleModal(false)} />}
     </div>
   );
 };

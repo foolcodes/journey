@@ -6,7 +6,12 @@ import { BarChart2, LogOut, TrendingUp, Menu } from "lucide-react";
 
 const SIDEBAR = [
   { name: "Overview", icon: BarChart2, color: "#6366F1", path: "/overview" },
-  { name: "Challenges", icon: TrendingUp, color: "#EC4899", path: "/main" },
+  {
+    name: "Challenges",
+    icon: TrendingUp,
+    color: "#EC4899",
+    path: "/challenges",
+  },
   { name: "Sign Out", icon: LogOut, color: "#3B82F6", path: "/signout" },
 ];
 
