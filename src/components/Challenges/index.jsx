@@ -18,10 +18,10 @@ const Challenges = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#080C18] font-semibold p-10 pt-4">
+    <div className="w-full h-screen bg-[#080C18] p-10 pt-4">
       <div className="flex justify-between">
-        <h1 data-aos="fade-down" className="text-white text-3xl">
-          Challenges
+        <h1 data-aos="fade-down" className="text-gray-50 text-2xl">
+          CHALLENGES
         </h1>
         <button
           onClick={() => toggleChalengeModal(true)}

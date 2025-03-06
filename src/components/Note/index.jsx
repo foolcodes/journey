@@ -14,7 +14,9 @@ const Note = ({ achieve = "" }) => {
       data-aos="fade-left"
       className="bg-gray-900 border border-gray-700 rounded-xl p-4 max-w-[22vw]"
     >
-      <h1 className="gradient-text text-2xl mb-3">Aim of the Challenge</h1>
+      <h1 className="gradient-text text-2xl mb-3 font-semibold">
+        Aim of the Challenge
+      </h1>
       <textarea
         placeholder="-> Be consistent
 

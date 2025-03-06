@@ -6,14 +6,11 @@ import Register from "./components/Register";
 import Overview from "./components/Overview";
 import Challenges from "./components/Challenges";
 import Sidebar from "./components/Sidebar";
+import Signout from "./components/Signout";
 
 const App = () => {
   const location = useLocation();
-
-  // Define routes where Sidebar should not be shown
   const noSidebarRoutes = ["/", "/login", "/register"];
-
-  // Check if current route requires Sidebar
   const showSidebar = !noSidebarRoutes.includes(location.pathname);
 
   return (
@@ -25,6 +22,7 @@ const App = () => {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/overview" element={<Overview />} />
         <Route exact path="/challenges" element={<Challenges />} />
+        <Route exact path="/signout" element={<Signout />} />
       </Routes>
     </div>
   );
