@@ -94,7 +94,7 @@ const User = () => {
         </div>
       </div>
       {showModal && (
-        <SignoutModal
+        <UserModal
           closeModal={() => toggleShowModal(false)}
           onImageSelectedUrl={onImageSelectedUrl}
         />

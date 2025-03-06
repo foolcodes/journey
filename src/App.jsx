@@ -7,6 +7,7 @@ import Overview from "./components/Overview";
 import Challenges from "./components/Challenges";
 import Sidebar from "./components/Sidebar";
 import User from "./components/User";
+import SignoutModal from "./components/SignoutModal";
 
 const App = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const App = () => {
         <Route exact path="/overview" element={<Overview />} />
         <Route exact path="/challenges" element={<Challenges />} />
         <Route exact path="/user" element={<User />} />
+        <Route exact path="/signout" element={<SignoutModal />} />
       </Routes>
     </div>
   );

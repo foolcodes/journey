@@ -3,7 +3,7 @@ import { useState } from "react";
 import Chart from "../Chart";
 import StatisticsCard from "../StatisticsCard";
 import DayModal from "../DayModal";
-import ShinyButton from "../ShinnyButton/ShinyButton";
+import ShinyButton from "../ShinyButton/ShinyButton";
 
 const details = [
   { title: "Month", value: "70 Hours", color: "#6366F1" },

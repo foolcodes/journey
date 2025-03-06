@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ShinyButton from "../ShinnyButton/ShinyButton";
+import ShinyButton from "../ShinyButton/ShinyButton";
 import { FaCode } from "react-icons/fa";
 
 const Header = () => {

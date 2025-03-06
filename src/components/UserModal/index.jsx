@@ -23,7 +23,7 @@ const UserModal = ({ closeModal, onImageSelectedUrl }) => {
         >
           <X size={30} color="white" />
         </button>
-        <div className="bg-indigo-500 p-5 rounded-2xl flex flex-col justify-center items-center">
+        <div className="bg-linear-to-bl from-indigo-500 to-purple-500 p-5 rounded-2xl flex flex-col justify-center items-center">
           <label className="block mb-3 w-fit">
             <span className="sr-only">Choose profile photo</span>
             <input
