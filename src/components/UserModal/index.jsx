@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 
-const SignoutModal = ({ closeModal, onImageSelectedUrl }) => {
+const UserModal = ({ closeModal, onImageSelectedUrl }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -39,4 +39,4 @@ const SignoutModal = ({ closeModal, onImageSelectedUrl }) => {
   );
 };
 
-export default SignoutModal;
+export default UserModal;

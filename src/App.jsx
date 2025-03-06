@@ -6,7 +6,7 @@ import Register from "./components/Register";
 import Overview from "./components/Overview";
 import Challenges from "./components/Challenges";
 import Sidebar from "./components/Sidebar";
-import Signout from "./components/Signout";
+import User from "./components/User";
 
 const App = () => {
   const location = useLocation();
@@ -22,7 +22,7 @@ const App = () => {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/overview" element={<Overview />} />
         <Route exact path="/challenges" element={<Challenges />} />
-        <Route exact path="/signout" element={<Signout />} />
+        <Route exact path="/user" element={<User />} />
       </Routes>
     </div>
   );

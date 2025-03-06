@@ -1,9 +1,9 @@
 import { useState } from "react";
-import SignoutModal from "../SignoutModal";
+import UserModal from "../UserModal";
 
 import { PencilIcon } from "lucide-react";
 
-const Signout = () => {
+const User = () => {
   const [showModal, toggleShowModal] = useState(false);
   const [image, setImage] = useState(
     "https://avatarfiles.alphacoders.com/161/161002.jpg"
@@ -103,4 +103,4 @@ const Signout = () => {
   );
 };
 
-export default Signout;
+export default User;
