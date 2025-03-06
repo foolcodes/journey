@@ -9,21 +9,6 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const DAILYDATA = [
-  { day: "Day1", hours: 7 },
-  { day: "Day2", hours: 5 },
-  { day: "Day3", hours: 8 },
-  { day: "Day4", hours: 3 },
-  { day: "Day5", hours: 5 },
-  { day: "Day6", hours: 7 },
-  { day: "Day7", hours: 4 },
-  { day: "Day8", hours: 6 },
-  { day: "Day9", hours: 3 },
-  { day: "Day10", hours: 8 },
-  { day: "Day11", hours: 6 },
-  { day: "Day12", hours: 5 },
-];
-
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -36,13 +21,13 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const Chart = () => {
+const Chart = ({ data }) => {
   return (
     <div className="bg-[#111827] ps-0 p-5 border border-gray-700 rounded-md">
       <h1 className="text-gray-50 text-xl ps-14 pb-10">Performance</h1>
       <div style={{ width: "100%", height: "38vh" }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={DAILYDATA}>
+          <LineChart data={data}>
             <CartesianGrid
               vertical={true}
               horizontal={false}

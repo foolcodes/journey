@@ -84,15 +84,10 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(128, 128, 128, 0.5); /* Semi-transparent gray */
+  background-color: rgba(128, 128, 128, 0.5);
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(
-    128,
-    128,
-    128,
-    0.7
-  ); /* Slightly more visible on hover */
+  background-color: rgba(128, 128, 128, 0.7);
 }

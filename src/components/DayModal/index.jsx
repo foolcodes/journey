@@ -1,7 +1,27 @@
+import { useRef, useState } from "react";
+
 import { X, Hourglass } from "lucide-react";
-const DayModal = ({ onClose }) => {
+
+const DayModal = ({ onClose, onAddDailyData }) => {
+  const [topics, onSetTopics] = useState("");
+  const [hours, onSetHours] = useState("");
+
+  const onSubmitAddDay = (event) => {
+    event.preventDefault();
+    onAddDailyData(hours);
+    onClose();
+  };
+
+  const modalRef = useRef();
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      onClose();
+    }
+  };
   return (
     <div
+      ref={modalRef}
+      onClick={closeModal}
       data-aos="fade-up"
       className="fixed inset-0 bg-black/10 backdrop-blur-sm z-50 flex items-center justify-center"
     >
@@ -17,9 +37,13 @@ const DayModal = ({ onClose }) => {
             New Day, Same Goal!
           </h1>
           <h2 className="text-xl mb-3 font-medium">Day 1</h2>
-          <form className="flex flex-col items-center">
+          <form
+            className="flex flex-col items-center"
+            onSubmit={onSubmitAddDay}
+          >
             <div className="relative w-full mb-5 flex justify-center items-center">
               <input
+                onChange={(e) => onSetHours(e.target.value)}
                 type="text"
                 placeholder="Hours?"
                 className="border-none focus:outline-none p-3 pr-10 h-11 bg-white w-full text-black rounded text-sm"
@@ -30,8 +54,9 @@ const DayModal = ({ onClose }) => {
               />
             </div>{" "}
             <textarea
+              onChange={(e) => onSetTopics(e.target.value)}
               placeholder="Topics Covered"
-              className="border-none focus:outline-none p-3 pr-10 bg-white w-full text-black rounded text-sm resize-none h-24 mb-5"
+              className="border-none focus:outline-none p-3 pr-10 bg-white w-full text-black rounded text-sm resize-none h-24 mb-5 overflow-y-scroll custom-scrollbar"
             />
             <button className="text-white cursor-pointer bg-black rounded w-17 px-4 py-2 font-medium">
               Add

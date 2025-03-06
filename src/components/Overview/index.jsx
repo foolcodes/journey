@@ -14,6 +14,25 @@ const details = [
 
 const Overview = () => {
   const [modal, toggleModal] = useState(false);
+  const [data, setData] = useState([
+    { day: "Day1", hours: 7 },
+    { day: "Day2", hours: 5 },
+    { day: "Day3", hours: 8 },
+    { day: "Day4", hours: 3 },
+    { day: "Day5", hours: 5 },
+    { day: "Day6", hours: 7 },
+    { day: "Day7", hours: 4 },
+    { day: "Day8", hours: 6 },
+    { day: "Day9", hours: 3 },
+    { day: "Day10", hours: 8 },
+    { day: "Day11", hours: 6 },
+    { day: "Day12", hours: 5 },
+  ]);
+
+  const onAddDailyData = (hoursValue) => {
+    setData([...data, { day: "Day13", hours: hoursValue }]);
+  };
+
   return (
     <div className="w-full h-screen bg-[#080C18] overflow-auto p-10 pt-5">
       <div
@@ -36,8 +55,13 @@ const Overview = () => {
           <StatisticsCard key={index} itemDetails={eachItem} />
         ))}
       </div>
-      <Chart />
-      {modal && <DayModal onClose={() => toggleModal(false)} />}
+      <Chart data={data} />
+      {modal && (
+        <DayModal
+          onAddDailyData={onAddDailyData}
+          onClose={() => toggleModal(false)}
+        />
+      )}
     </div>
   );
 };

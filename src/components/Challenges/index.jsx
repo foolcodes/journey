@@ -6,10 +6,17 @@ import ChallengeModal from "../ChallengeModal";
 
 const Challenges = () => {
   const [challengeModal, toggleChalengeModal] = useState(false);
-
-  const challenges = [
+  const [aim, setAim] = useState("");
+  const [challengesData, setChallenges] = useState([
     { title: "100 Days Challenge", status: "In Progress", id: 1 },
-  ];
+  ]);
+
+  const onAddChallengesData = (challengeDays) => {
+    challengeDays.title = challengeDays.title + " Days of Challenge";
+    setChallenges([...challengesData, challengeDays]);
+    setAim(challengeDays.achieve);
+  };
+
   return (
     <div className="w-full h-screen bg-[#080C18] font-semibold p-10 pt-4">
       <div className="flex justify-between">
@@ -28,14 +35,15 @@ const Challenges = () => {
           data-aos="fade-right"
           className="bg-gray-900 border mr-7 border-gray-700 min-h-[70vh] max-h-[70vh] w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar"
         >
-          {challenges.map((eachItem) => (
+          {challengesData.map((eachItem) => (
             <ChallengeCard challengeDetails={eachItem} key={eachItem.id} />
           ))}
         </div>
-        <Note />
+        <Note achieve={aim} />
       </div>
       {challengeModal && (
         <ChallengeModal
+          onAddChallengesData={onAddChallengesData}
           onCloseChallengeModal={() => toggleChalengeModal(false)}
         />
       )}
