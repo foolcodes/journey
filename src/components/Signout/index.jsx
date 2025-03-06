@@ -1,9 +1,23 @@
+import { useState } from "react";
+import SignoutModal from "../SignoutModal";
+
+import { PencilIcon } from "lucide-react";
+
 const Signout = () => {
+  const [showModal, toggleShowModal] = useState(false);
+  const [image, setImage] = useState(
+    "https://avatarfiles.alphacoders.com/161/161002.jpg"
+  );
+
+  const onImageSelectedUrl = (url) => {
+    setImage(url);
+  };
+
   return (
     <div className="bg-[#080C18] h-screen w-full p-10 pt-4">
       <h1 className="text-gray-50 text-2xl">USER PROFILE</h1>
       <div className="flex justify-center items-center">
-        <div className="bg-[#111827] p-10 mt-8 rounded-l">
+        <div className="bg-[#111827] p-10 mt-8 rounded-md pe-30">
           <h1 className="text-white font-semibold text-sm mb-8">
             Edit Profile
           </h1>
@@ -57,7 +71,34 @@ const Signout = () => {
             </div>
           </form>
         </div>
+
+        <div className="bg-[#111827] ml-7 relative flex flex-col justify-center items-center p-6 rounded-md">
+          <div className="relative mb-6">
+            <img
+              src={image}
+              alt="avatar"
+              className="w-[150px] h-[150px] rounded-full border-2 border-gray-200"
+            />
+            <button
+              onClick={toggleShowModal}
+              className="absolute -bottom-3 left-0 right-0 m-auto w-fit p-[.35rem] rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-600 cursor-pointer"
+            >
+              <PencilIcon size={"14px"} color="gray" />
+            </button>
+          </div>
+          <h1 className="text-gray-300 text-xl font-semibold mb-7">Foolish</h1>
+          <p className="text-gray-300 font-normal">
+            I am gonna nail the challenge and be very productive throughtout the
+            challenge.
+          </p>
+        </div>
       </div>
+      {showModal && (
+        <SignoutModal
+          closeModal={() => toggleShowModal(false)}
+          onImageSelectedUrl={onImageSelectedUrl}
+        />
+      )}
     </div>
   );
 };
