@@ -9,6 +9,7 @@ import Sidebar from "./components/Sidebar";
 import User from "./components/User";
 import SignoutModal from "./components/SignoutModal";
 import SignupVerification from "./components/SignupVerification";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const App = () => {
         <Route exact path="/signout" element={<SignoutModal />} />
         <Route exact path="verify-email" element={<SignupVerification />} />
       </Routes>
+      <Toaster />
     </div>
   );
 };

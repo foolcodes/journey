@@ -1,11 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAuthStore } from "../../store/authStore";
+import toast from "react-hot-toast";
 
 const SignupVerification = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
+
+  const { error, isLoading, verifyEmail } = useAuthStore();
 
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -55,10 +59,16 @@ const SignupVerification = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const verificationCode = code.join("");
-    alert(`Verification code submitted: ${verificationCode}`);
+    try {
+      await verifyEmail(verificationCode);
+      navigate("/overview");
+      toast.success("Email verified successfully");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -66,8 +76,6 @@ const SignupVerification = () => {
       handleSubmit(new Event("submit"));
     }
   }, [code]);
-
-  const isLoading = false;
 
   return (
     <div className="w-full h-screen bg-[#080C18] flex justify-center">
@@ -97,6 +105,7 @@ const SignupVerification = () => {
               />
             ))}
           </div>
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
