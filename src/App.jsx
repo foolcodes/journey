@@ -8,10 +8,11 @@ import Challenges from "./components/Challenges";
 import Sidebar from "./components/Sidebar";
 import User from "./components/User";
 import SignoutModal from "./components/SignoutModal";
+import SignupVerification from "./components/SignupVerification";
 
 const App = () => {
   const location = useLocation();
-  const noSidebarRoutes = ["/", "/login", "/register"];
+  const noSidebarRoutes = ["/", "/login", "/signup", "/verify-email"];
   const showSidebar = !noSidebarRoutes.includes(location.pathname);
 
   return (
@@ -20,11 +21,12 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/signup" element={<Register />} />
         <Route exact path="/overview" element={<Overview />} />
         <Route exact path="/challenges" element={<Challenges />} />
         <Route exact path="/user" element={<User />} />
         <Route exact path="/signout" element={<SignoutModal />} />
+        <Route exact path="verify-email" element={<SignupVerification />} />
       </Routes>
     </div>
   );
