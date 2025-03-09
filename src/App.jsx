@@ -13,12 +13,13 @@ import Overview from "./components/Overview";
 import Challenges from "./components/Challenges";
 import Sidebar from "./components/Sidebar";
 import User from "./components/User";
-import SignoutModal from "./components/SignoutModal";
 import SignupVerification from "./components/SignupVerification";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import Loading from "./components/Loading";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
@@ -39,7 +40,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      return navigate("/login", { replace: true });
+      return navigate("/", { replace: true });
     }
     if (!user.isVerified) {
       return navigate("/verify-email", { replace: true });
@@ -51,8 +52,17 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
   const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
   const location = useLocation();
-  const noSidebarRoutes = ["/", "/login", "/signup", "/verify-email"];
-  const showSidebar = !noSidebarRoutes.includes(location.pathname);
+  const noSidebarRoutes = [
+    "/",
+    "/login",
+    "/signup",
+    "/verify-email",
+    "/forgot-password",
+    "/reset-password/:token",
+  ];
+  const showSidebar =
+    !noSidebarRoutes.includes(location.pathname) &&
+    !location.pathname.startsWith("/reset-password");
 
   useEffect(() => {
     checkAuth();
@@ -112,16 +122,26 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route exact path="/verify-email" element={<SignupVerification />} />
         <Route
           exact
-          path="/signout"
+          path="/forgot-password"
           element={
-            <ProtectedRoute>
-              <SignoutModal />
-            </ProtectedRoute>
+            <RedirectAuthenticatedUser>
+              <ForgotPassword />
+            </RedirectAuthenticatedUser>
           }
         />
-        <Route exact path="verify-email" element={<SignupVerification />} />
+
+        <Route
+          exact
+          path="/reset-password/:token"
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPassword />
+            </RedirectAuthenticatedUser>
+          }
+        />
       </Routes>
       <Toaster />
     </div>

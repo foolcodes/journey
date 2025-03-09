@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { FaUser } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { useState } from "react";
 import { useAuthStore } from "../../store/authStore";
@@ -43,7 +44,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="input-box"
               />
-              <FaUser className="input-icon top-3.5" />
+              <FaEnvelope className="input-icon top-3.5" />
             </div>
 
             <div className="flex relative mb-[30px]">
@@ -57,9 +58,20 @@ const Login = () => {
               />
               <FaLock className="input-icon top-3.5" />
             </div>
+
+            <div className="flex items-center mb-6">
+              <Link
+                to="/forgot-password"
+                className="text-sm font-semibold text-[#512da8] hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
             {error && (
               <p className="text-red-500 text-sm font-semibold mb-3">{error}</p>
             )}
+
             <button
               disabled={isLoading}
               className="bg-[#512da8] w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold"
