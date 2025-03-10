@@ -1,21 +1,28 @@
 import { useRef, useState } from "react";
 
-import { X, CalendarDays } from "lucide-react";
+import { X, CalendarDays, Loader } from "lucide-react";
+import { useChallengeStore } from "../../store/challengesStore";
+import toast from "react-hot-toast";
 
-const ChallengeModal = ({ onCloseChallengeModal, onAddChallengesData }) => {
+const ChallengeModal = ({ onCloseChallengeModal }) => {
   const [noOfDays, setDays] = useState("");
   const [achieve, setAchieve] = useState("");
   const [currentDay, setCurrentDay] = useState("");
 
-  const onSubmitAddChallenge = (event) => {
+  const { addChallenge, isLoading, error } = useChallengeStore();
+
+  const onSubmitAddChallenge = async (event) => {
     event.preventDefault();
-    onAddChallengesData({
-      title: noOfDays,
-      status: "In Progress",
-      id: 2,
-      achieve: achieve,
-    });
-    onCloseChallengeModal();
+    const response = await addChallenge(noOfDays, achieve);
+
+    if (!response) {
+      alert("Error adding challenge. Please try again.");
+      return;
+    }
+    if (!isLoading) {
+      onCloseChallengeModal();
+      toast.success("Challenge added successfully, reload the page to update!");
+    }
   };
 
   const modalRef = useRef();
@@ -76,8 +83,15 @@ const ChallengeModal = ({ onCloseChallengeModal, onAddChallengesData }) => {
               placeholder="Describe what you want to achieve with this challenge"
               className="border-none focus:outline-none p-3 pr-10 bg-white w-full text-black rounded text-sm resize-none h-24 mb-5 overflow-y-scroll custom-scrollbar"
             />
-            <button className="text-white cursor-pointer bg-black rounded w-17 px-4 py-2 font-medium">
-              Add
+            <button
+              disabled={isLoading}
+              className="bg-black w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold"
+            >
+              {isLoading ? (
+                <Loader className="w-6 h-6 mx-auto animate-spin" />
+              ) : (
+                "Add"
+              )}
             </button>
             <p className="text-white text-sm mt-2">
               Once set, you can{" "}

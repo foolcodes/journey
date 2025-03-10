@@ -8,8 +8,8 @@ import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
-router.post("/create", verifyToken, createChallenge);
+router.post("/", verifyToken, createChallenge);
 router.get("/", verifyToken, getChallenges);
-router.post("/", verifyToken, createChallengeData);
+// router.post("/", verifyToken, createChallengeData);
 
 export default router;

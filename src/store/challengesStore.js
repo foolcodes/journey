@@ -1,27 +1,52 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/challenge";
+const API_URL = "http://localhost:5000/challenges"; // Make sure the endpoint is correct
 
 axios.defaults.withCredentials = true;
 
-export const useChallengeStore = create({
+export const useChallengeStore = create((set, get) => ({
   error: null,
   isLoading: false,
-  data: null,
-  message: null,
+  data: [],
 
   getChallenges: async () => {
     set({ isLoading: true, error: null });
+
     try {
-      const response = await axios.get(`${API_URL}`);
-      set({ data: response.data, isLoading: false });
+      const response = await axios.get(API_URL);
+      set({ data: response.data.data || [], isLoading: false });
+      return response.data.data;
     } catch (error) {
       set({
         isLoading: false,
-        error: error.message || "Error fetching challenges",
+        error: error.response?.data?.message || "Error fetching challenges",
       });
-      throw error;
+      return null;
     }
   },
-});
+
+  addChallenge: async (title, aim) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const response = await axios.post(`${API_URL}`, { title, aim });
+      const newChallenge = response.data.data;
+
+      set((state) => ({
+        data: [...state.data, newChallenge],
+        isLoading: false,
+      }));
+
+      return newChallenge;
+    } catch (error) {
+      console.log("Error while adding challenge", error.message);
+      set({
+        isLoading: false,
+        error: error.response?.data?.message || "Error adding challenge",
+      });
+
+      return null;
+    }
+  },
+}));

@@ -50,7 +50,7 @@ export const createChallengeData = async (req, res) => {
     });
 
     if (!challenge) {
-      return res.send(400).json({
+      return res.status(400).json({
         success: false,
         message: "No challenge found where the user want to add the day!",
       });

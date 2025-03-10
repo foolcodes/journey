@@ -1,10 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ChallengeCard from "../ChallengeCard";
 import Note from "../Note";
 import ChallengeModal from "../ChallengeModal";
+import { useChallengeStore } from "../../store/challengesStore";
 
 const Challenges = () => {
+  const [data, setData] = useState([]);
+
+  const { getChallenges, isLoading, error } = useChallengeStore();
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const response = await getChallenges();
+        if (response) {
+          const formattedResponse = response.map((challenge) => ({
+            challengeId: challenge._id,
+            title: challenge.title + " Days of Code",
+            status: challenge.status,
+          }));
+          setData(formattedResponse);
+        }
+      } catch (error) {
+        console.error("Error fetching challenges:", error);
+      }
+    };
+
+    fetchChallenges();
+  }, [getChallenges]);
+
   const [challengeModal, toggleChalengeModal] = useState(false);
   const [aim, setAim] = useState("");
   const [challengesData, setChallenges] = useState([
@@ -33,10 +58,13 @@ const Challenges = () => {
       <div className="flex mt-8">
         <div
           data-aos="fade-right"
-          className="bg-gray-900 mr-7 min-h-[70vh] max-h-[70vh] w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar"
+          className="bg-gray-900 mr-7 max-h-[80vh] w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar"
         >
-          {challengesData.map((eachItem) => (
-            <ChallengeCard challengeDetails={eachItem} key={eachItem.id} />
+          {data.map((eachItem) => (
+            <ChallengeCard
+              challengeDetails={eachItem}
+              key={eachItem.challengeId}
+            />
           ))}
         </div>
         <Note achieve={aim} />
