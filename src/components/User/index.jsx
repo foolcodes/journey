@@ -3,7 +3,11 @@ import UserModal from "../UserModal";
 
 import { PencilIcon } from "lucide-react";
 
+import { useAuthStore } from "../../store/authStore";
+
 const User = () => {
+  const { user } = useAuthStore();
+
   const [showModal, toggleShowModal] = useState(false);
   const [image, setImage] = useState(
     "https://avatarfiles.alphacoders.com/161/161002.jpg"
@@ -34,7 +38,7 @@ const User = () => {
               <div>
                 <h2 className="text-gray-300 text-sm mb-3">Email</h2>
                 <input
-                  placeholder="fool@gmail.com"
+                  placeholder={user.email}
                   type="text"
                   className="w-70 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />
@@ -44,7 +48,7 @@ const User = () => {
               <div>
                 <h2 className="text-gray-300 text-sm mb-3">First Name</h2>
                 <input
-                  placeholder="fool"
+                  placeholder={user.name}
                   type="text"
                   className="w-70 mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />

@@ -56,6 +56,10 @@ const ForgotPassword = () => {
                   "Send Reset Link"
                 )}
               </motion.button>
+
+              {error && (
+                <p className="text-red-500 text-sm text-center mt-5">{error}</p>
+              )}
             </form>
           ) : (
             <div className="text-center">

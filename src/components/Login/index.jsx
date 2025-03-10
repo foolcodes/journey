@@ -92,7 +92,7 @@ const Login = () => {
             <h1 className="text-4xl font-bold mb-3">Welcome Back!</h1>
             <p className="text-sm mb-5">Don't have an account?</p>
             <button
-              onClick={() => navigate("/register", { replace: true })}
+              onClick={() => navigate("/signup", { replace: true })}
               className="bg-transparent w-44 p-2 rounded-xl shadow-2xs border-1 border-solid border-white cursor-pointer text-white font-semibold"
             >
               Register

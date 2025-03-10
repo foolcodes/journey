@@ -124,7 +124,9 @@ export const forgotPassword = async (request, response) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      response.status(400).json({ success: false, message: "User not found" });
+      return response
+        .status(400)
+        .json({ success: false, message: "User not found" });
     }
     const resetToken = crypto.randomBytes(20).toString("hex");
     const resetTokenExpires = Date.now() + 600000;

@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { connectDb } from "./db/connectDB.js";
 
 import authRoutes from "./routes/auth.route.js";
+import challengeRoutes from "./routes/challenge.route.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
 
 app.use("/api/auth", authRoutes);
+app.use("/challenge", challengeRoutes);
 
 app.listen(PORT, () => {
   connectDb();

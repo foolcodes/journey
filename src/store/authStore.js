@@ -120,9 +120,12 @@ export const useAuthStore = create((set) => ({
       });
       set({ isLoading: false, message: response.data.message });
     } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || error.message || "Error sending email";
+
       set({
         isLoading: false,
-        error: error.response.data.message || "Error sending email",
+        error: errorMessage,
       });
       throw error;
     }
@@ -138,7 +141,10 @@ export const useAuthStore = create((set) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error.response.data.message || "Error resetting password",
+        error:
+          error.response?.data?.message ||
+          error.message ||
+          "Error resetting password",
       });
       throw error;
     }
