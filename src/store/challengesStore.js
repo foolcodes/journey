@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/challenges"; // Make sure the endpoint is correct
+const API_URL = "http://localhost:5000/challenges";
 
 axios.defaults.withCredentials = true;
 
@@ -26,11 +26,15 @@ export const useChallengeStore = create((set, get) => ({
     }
   },
 
-  addChallenge: async (title, aim) => {
+  addChallenge: async (title, aim, currentDay) => {
     set({ isLoading: true, error: null });
 
     try {
-      const response = await axios.post(`${API_URL}`, { title, aim });
+      const response = await axios.post(`${API_URL}`, {
+        title,
+        aim,
+        currentDay,
+      });
       const newChallenge = response.data.data;
 
       set((state) => ({
@@ -40,10 +44,14 @@ export const useChallengeStore = create((set, get) => ({
 
       return newChallenge;
     } catch (error) {
-      console.log("Error while adding challenge", error.message);
+      const errorMessage =
+        error.response?.data?.errorType === "ACTIVE_CHALLENGE_EXISTS"
+          ? "You already have an active challenge. Complete or abandon it first!"
+          : error.response?.data?.message || "Error adding challenge";
+
       set({
         isLoading: false,
-        error: error.response?.data?.message || "Error adding challenge",
+        error: errorMessage,
       });
 
       return null;

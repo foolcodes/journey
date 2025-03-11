@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Chart from "../Chart";
 import StatisticsCard from "../StatisticsCard";
 import DayModal from "../DayModal";
 import ShinyButton from "../ShinyButton/ShinyButton";
+import { useOverviewStore } from "../../store/overviewStore";
 
 const details = [
   { title: "Month", value: "70 Hours", color: "#6366F1" },
@@ -33,6 +34,19 @@ const Overview = () => {
     setData([...data, { day: "Day13", hours: hoursValue }]);
   };
 
+  const [presentDay, setPresentDay] = useState(null);
+
+  const { getCurrentDay } = useOverviewStore();
+
+  useEffect(() => {
+    const getPresentDay = async () => {
+      const currentDate = Date.now();
+      const presentDay = await getCurrentDay(currentDate);
+      setPresentDay(presentDay);
+    };
+    getPresentDay();
+  }, []);
+
   return (
     <div className="w-full h-screen bg-[#080C18] overflow-auto p-10 pt-5">
       <div
@@ -55,7 +69,7 @@ const Overview = () => {
           <StatisticsCard key={index} itemDetails={eachItem} />
         ))}
       </div>
-      <Chart data={data} />
+      <Chart data={data} presentDay={presentDay} />
       {modal && (
         <DayModal
           onAddDailyData={onAddDailyData}

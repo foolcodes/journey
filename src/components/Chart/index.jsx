@@ -21,10 +21,14 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const Chart = ({ data }) => {
+const Chart = ({ data, presentDay }) => {
+  const day = `Day ${presentDay}`;
   return (
     <div className="bg-[#111827] ps-0 p-5  rounded-md">
-      <h1 className="text-gray-50 text-xl ps-14 pb-10">Performance</h1>
+      <div className="flex justify-between">
+        <h1 className="text-gray-50 text-xl ps-14 pb-10">Performance</h1>
+        <h1 className="text-gray-50 text-xl ps-14 pb-10 pe-10">{day}</h1>
+      </div>
       <div style={{ width: "100%", height: "38vh" }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>

@@ -14,6 +14,7 @@ const challengeSchema = new Schema(
       enum: ["active", "completed", "abandoned"],
       default: "active",
     },
+    currentDay: { type: Number, default: 1 },
   },
   { timestamps: true }
 );

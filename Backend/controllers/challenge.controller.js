@@ -4,21 +4,33 @@ import { ChallengeData } from "../models/user.challenge.data.js";
 
 export const createChallenge = async (req, res) => {
   try {
-    const { title, aim } = req.body;
+    const isActiveChallenge = await Challenge.findOne({
+      user: req.userId,
+      status: "active",
+    });
+
+    if (isActiveChallenge) {
+      return res.status(400).json({
+        success: false,
+        errorType: "ACTIVE_CHALLENGE_EXISTS",
+        message:
+          "You already have an active challenge. Complete or abandon it before starting a new one!",
+      });
+    }
+
+    const { title, aim, currentDay } = req.body;
 
     const challenge = await Challenge.create({
       user: req.userId,
       title,
       aim,
+      currentDay,
     });
 
     res.status(201).json({ success: true, data: challenge });
-    console.log(
-      "Challenge data added successfully with the following data:",
-      challenge
-    );
+    console.log("Challenge data added successfully:", challenge);
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    res.status(400).json({ success: false, message: error.message });
     console.log("Error adding the challenge", error.message);
   }
 };
