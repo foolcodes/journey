@@ -6,45 +6,36 @@ import DayModal from "../DayModal";
 import ShinyButton from "../ShinyButton/ShinyButton";
 import { useOverviewStore } from "../../store/overviewStore";
 
-const details = [
-  { title: "Month", value: "70 Hours", color: "#6366F1" },
-  { title: "Week", value: "24 Hours", color: "#10B981" },
-  { title: "Day", value: "5 Hours", color: "#EC4899" },
-  { title: "Total", value: "99 Hours", color: "#FFBF00" },
-];
-
 const Overview = () => {
   const [modal, toggleModal] = useState(false);
-  const [data, setData] = useState([
-    { day: "Day1", hours: 7 },
-    { day: "Day2", hours: 5 },
-    { day: "Day3", hours: 8 },
-    { day: "Day4", hours: 3 },
-    { day: "Day5", hours: 5 },
-    { day: "Day6", hours: 7 },
-    { day: "Day7", hours: 4 },
-    { day: "Day8", hours: 6 },
-    { day: "Day9", hours: 3 },
-    { day: "Day10", hours: 8 },
-    { day: "Day11", hours: 6 },
-    { day: "Day12", hours: 5 },
-  ]);
-
-  const onAddDailyData = (hoursValue) => {
-    setData([...data, { day: "Day13", hours: hoursValue }]);
-  };
-
   const [presentDay, setPresentDay] = useState(null);
 
-  const { getCurrentDay } = useOverviewStore();
+  const {
+    getCurrentDay,
+    getChallengeData,
+    isLoading,
+    challengeData,
+    monthlyHours,
+    weeklyHours,
+    totalHours,
+    dailyHours,
+  } = useOverviewStore();
+
+  const details = [
+    { title: "Month", value: `${monthlyHours} Hours`, color: "#6366F1" },
+    { title: "Week", value: `${weeklyHours} Hours`, color: "#10B981" },
+    { title: "Day", value: `${dailyHours} Hours`, color: "#EC4899" },
+    { title: "Total", value: `${totalHours} Hours`, color: "#FFBF00" },
+  ];
 
   useEffect(() => {
-    const getPresentDay = async () => {
+    const fetchData = async () => {
       const currentDate = Date.now();
       const presentDay = await getCurrentDay(currentDate);
+      await getChallengeData();
       setPresentDay(presentDay);
     };
-    getPresentDay();
+    fetchData();
   }, []);
 
   return (
@@ -69,12 +60,9 @@ const Overview = () => {
           <StatisticsCard key={index} itemDetails={eachItem} />
         ))}
       </div>
-      <Chart data={data} presentDay={presentDay} />
+      <Chart data={challengeData} presentDay={presentDay} />
       {modal && (
-        <DayModal
-          onAddDailyData={onAddDailyData}
-          onClose={() => toggleModal(false)}
-        />
+        <DayModal presentDay={presentDay} onClose={() => toggleModal(false)} />
       )}
     </div>
   );

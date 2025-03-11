@@ -23,6 +23,12 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const Chart = ({ data, presentDay }) => {
   const day = `Day ${presentDay}`;
+
+  const formattedData = data.map((eachItem) => ({
+    ...eachItem,
+    day: `Day ${eachItem.day}`,
+  }));
+
   return (
     <div className="bg-[#111827] ps-0 p-5  rounded-md">
       <div className="flex justify-between">
@@ -31,7 +37,7 @@ const Chart = ({ data, presentDay }) => {
       </div>
       <div style={{ width: "100%", height: "38vh" }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <LineChart data={formattedData}>
             <CartesianGrid
               vertical={true}
               horizontal={false}
