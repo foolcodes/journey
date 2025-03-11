@@ -58,7 +58,7 @@ const Challenges = () => {
       <div className="flex mt-8">
         <div
           data-aos="fade-right"
-          className="bg-gray-900 mr-7 max-h-[80vh] w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar"
+          className="bg-gray-900 mr-7 min-h-[70vh] max-h-[80vh] w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar"
         >
           {data.map((eachItem) => (
             <ChallengeCard

@@ -49,4 +49,23 @@ export const useChallengeStore = create((set, get) => ({
       return null;
     }
   },
+
+  deleteChallenge: async (challengeId) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.delete(`${API_URL}/${challengeId}`);
+      set((state) => ({
+        data: state.data.filter((challenge) => challenge._id !== challengeId),
+        isLoading: false,
+      }));
+      return response.data;
+    } catch (error) {
+      console.log("Error while deleting challenge", error);
+      set({
+        isLoading: false,
+        error: error.response?.data?.message || "Error deleting challenge",
+      });
+      throw error;
+    }
+  },
 }));

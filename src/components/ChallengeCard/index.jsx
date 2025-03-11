@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Trash } from "lucide-react";
+import { useChallengeStore } from "../../store/challengesStore";
+import toast from "react-hot-toast";
 
 const ChallengeCard = ({ challengeDetails }) => {
   const { title, status, challengeId } = challengeDetails;
   const [isHovered, setIsHovered] = useState(false);
 
+  const { deleteChallenge, isLoading, error } = useChallengeStore();
+
+  const onClickDelteChallenge = async () => {
+    await deleteChallenge(challengeId);
+    toast.success(
+      "Challenge deleted successfully, please reload the page to see update!"
+    );
+  };
+
   return (
     <motion.div
-      onClick={() => console.log(challengeId)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="cursor-pointer relative bg-[#111827] bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl border border-gray-700 m-3 max-h-32"
@@ -21,6 +31,7 @@ const ChallengeCard = ({ challengeDetails }) => {
             <motion.button
               whileHover={{ scale: 1.2 }}
               className="text-red-800 cursor-pointer"
+              onClick={onClickDelteChallenge}
             >
               <Trash size={20} />
             </motion.button>

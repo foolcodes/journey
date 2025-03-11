@@ -75,3 +75,25 @@ export const createChallengeData = async (req, res) => {
   }
   throw error;
 };
+
+export const deleteChallenge = async (req, res) => {
+  const { challengeId } = req.params;
+  try {
+    const response = await Challenge.deleteOne({ _id: challengeId });
+    if (!response) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Error while deleting" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Deletion successfull" });
+  } catch (error) {
+    console.log("Error while deleting the challenge", error.message);
+    return res.status(400).json({
+      success: false,
+      message: error.message || "Error while deleting the challenge",
+    });
+  }
+};
