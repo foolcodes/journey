@@ -15,7 +15,10 @@ export const useChallengeStore = create((set, get) => ({
 
     try {
       const response = await axios.get(API_URL);
-      set({ data: response.data.data || [], isLoading: false });
+      set({
+        data: response.data.data || [],
+        isLoading: false,
+      });
       return response.data.data;
     } catch (error) {
       set({
@@ -23,6 +26,21 @@ export const useChallengeStore = create((set, get) => ({
         error: error.response?.data?.message || "Error fetching challenges",
       });
       return null;
+    }
+  },
+
+  getAim: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.get(`${API_URL}/get-aim`);
+      set({ isLoading: false, aim: response.data.aim });
+      return response.data.aim;
+    } catch (error) {
+      console.log("error fetching aim data");
+      set({
+        isLoading: false,
+        error: error.message || "Error fetching aim message",
+      });
     }
   },
 

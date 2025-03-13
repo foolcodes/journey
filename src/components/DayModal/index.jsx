@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { X, Hourglass } from "lucide-react";
+import { X, Hourglass, Loader } from "lucide-react";
 import { useOverviewStore } from "../../store/overviewStore";
 import toast from "react-hot-toast";
 
@@ -17,7 +17,7 @@ const DayModal = ({ onClose, onAddDailyData, presentDay }) => {
       toast.error(useOverviewStore.getState().error);
     } else {
       onClose();
-      toast.success("Data updated successfully");
+      toast.success("Data updated successfully, please reload the page!");
     }
   };
 
@@ -53,8 +53,10 @@ const DayModal = ({ onClose, onAddDailyData, presentDay }) => {
             <div className="relative w-full mb-5 flex justify-center items-center">
               <input
                 onChange={(e) => onSetHours(e.target.value)}
-                type="text"
+                type="number"
                 placeholder="Hours?"
+                max="24"
+                min="1"
                 className="border-none focus:outline-none p-3 pr-10 h-11 bg-white w-full text-black rounded text-sm"
               />
               <Hourglass
@@ -68,7 +70,11 @@ const DayModal = ({ onClose, onAddDailyData, presentDay }) => {
               className="border-none focus:outline-none p-3 pr-10 bg-white w-full text-black rounded text-sm resize-none h-24 mb-5 overflow-y-scroll custom-scrollbar"
             />
             <button className="text-white cursor-pointer bg-black rounded w-17 px-4 py-2 font-medium">
-              Add
+              {isLoading ? (
+                <Loader className="w-6 h-6 mx-auto animate-spin" />
+              ) : (
+                "Add"
+              )}
             </button>
             {error && (
               <p className="text-red-500 text-center font-semiold text-sm mt-3">

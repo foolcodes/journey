@@ -9,14 +9,14 @@ const ChallengeModal = ({ onCloseChallengeModal }) => {
   const [achieve, setAchieve] = useState("");
   const [currentDay, setCurrentDay] = useState("");
 
-  const { addChallenge, isLoading, error } = useChallengeStore();
+  const { addChallenge, isLoading } = useChallengeStore();
 
   const onSubmitAddChallenge = async (event) => {
     event.preventDefault();
     const response = await addChallenge(noOfDays, achieve, currentDay);
 
     if (!response) {
-      alert("Error adding challenge. Please try again.");
+      toast.error("Cannot add a challenge when one challenge is active!");
       return;
     }
     if (!isLoading) {
@@ -93,11 +93,6 @@ const ChallengeModal = ({ onCloseChallengeModal }) => {
                 "Add"
               )}
             </button>
-            {error && (
-              <p className="text-red-500 font-semibold text-sm text-center mb-3 mt-3">
-                {error}
-              </p>
-            )}
             <p className="text-white text-sm mt-2">
               Once set, you can{" "}
               <span className="text-green-600 font-semibold"> extend </span> the

@@ -23,13 +23,15 @@ export const getCurrentDay = async (req, res) => {
         .json({ success: false, error: "No active challenge found" });
     }
 
-    const startDate = new Date(response.startDate).getTime();
+    const startDate = new Date(response.startDate);
+    const startDay = startDate.getUTCDate();
     const currentDay = response.currentDay;
-    const today = new Date(currentDate).getTime();
+    const today = new Date(currentDate);
+    const todayDay = today.getUTCDate();
 
-    const presentDay =
-      Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + currentDay + 1;
+    const presentDay = todayDay - startDay + currentDay + 1;
 
+    console.log("present day is", presentDay);
     res.status(200).json({ success: true, presentDay });
   } catch (error) {
     console.log("Error while calculating present day:", error.message);

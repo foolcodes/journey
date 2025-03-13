@@ -109,3 +109,26 @@ export const deleteChallenge = async (req, res) => {
     });
   }
 };
+
+export const getAim = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const response = await Challenge.findOne({
+      user: userId,
+      status: "active",
+    });
+    if (!response) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No active challenges found!" });
+    }
+    return res.status(200).json({ success: true, aim: response.aim });
+  } catch (error) {
+    console.log("Unable to fetch aim data", error.message);
+    return res.status(400).json({
+      success: false,
+      message: error.message || "Unable to gather aim",
+    });
+  }
+};

@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import {
   LineChart,
   ResponsiveContainer,
@@ -22,7 +25,12 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const Chart = ({ data, presentDay }) => {
-  const day = `Day ${presentDay}`;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fakeLoad = setTimeout(() => setLoading(false), 2000); // Simulate loading delay
+    return () => clearTimeout(fakeLoad);
+  }, []);
 
   const formattedData = data.map((eachItem) => ({
     ...eachItem,
@@ -30,45 +38,57 @@ const Chart = ({ data, presentDay }) => {
   }));
 
   return (
-    <div className="bg-[#111827] ps-0 p-5  rounded-md">
-      <div className="flex justify-between">
-        <h1 className="text-gray-50 text-xl ps-14 pb-10">Performance</h1>
-        <h1 className="text-gray-50 text-xl ps-14 pb-10 pe-10">{day}</h1>
+    <SkeletonTheme baseColor="#374151" highlightColor="#4B5563">
+      <div className="bg-[#111827] p-5 rounded-md">
+        <div className="flex justify-between">
+          <h1 className="text-gray-50 text-xl ps-14 pb-10">
+            {loading ? <Skeleton width={120} height={24} /> : "Performance"}
+          </h1>
+          <h1 className="text-gray-50 text-xl ps-14 pb-10 pe-10">
+            {loading ? (
+              <Skeleton width={80} height={24} />
+            ) : (
+              `Day ${presentDay}`
+            )}
+          </h1>
+        </div>
+
+        <div style={{ width: "100%", height: "38vh" }}>
+          {loading ? (
+            <Skeleton height={"100%"} width={"100%"} />
+          ) : (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={formattedData}>
+                <CartesianGrid
+                  vertical={true}
+                  horizontal={false}
+                  stroke="#6366F1"
+                  strokeOpacity={0.3}
+                />
+                <XAxis dataKey="day" stroke="#9ca3af" />
+                <YAxis stroke="#9ca3af" />
+                <Tooltip content={<CustomTooltip />} />
+                <Area
+                  type="monotone"
+                  dataKey="hours"
+                  fill="#6366F1"
+                  fillOpacity={0.1}
+                  stroke="none"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="hours"
+                  stroke="#6366F1"
+                  strokeWidth={3}
+                  dot={{ fill: "#6366F1", strokeWidth: 2, r: 6 }}
+                  activeDot={{ r: 8, strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
+        </div>
       </div>
-      <div style={{ width: "100%", height: "38vh" }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={formattedData}>
-            <CartesianGrid
-              vertical={true}
-              horizontal={false}
-              stroke="#6366F1"
-              strokeOpacity={0.3}
-            />
-
-            <XAxis dataKey="day" stroke="#9ca3af" />
-            <YAxis stroke="#9ca3af" />
-
-            <Tooltip content={<CustomTooltip />} />
-
-            <Area
-              type="monotone"
-              dataKey="hours"
-              fill="#6366F1"
-              fillOpacity={0.1}
-              stroke="none"
-            />
-            <Line
-              type="monotone"
-              dataKey="hours"
-              stroke="#6366F1"
-              strokeWidth={3}
-              dot={{ fill: "#6366F1", strokeWidth: 2, r: 6 }}
-              activeDot={{ r: 8, strokeWidth: 2 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
+    </SkeletonTheme>
   );
 };
 

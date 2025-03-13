@@ -4,17 +4,14 @@ import { Trash } from "lucide-react";
 import { useChallengeStore } from "../../store/challengesStore";
 import toast from "react-hot-toast";
 
-const ChallengeCard = ({ challengeDetails }) => {
+const ChallengeCard = ({ challengeDetails, getChallengeId }) => {
   const { title, status, challengeId } = challengeDetails;
   const [isHovered, setIsHovered] = useState(false);
 
   const { deleteChallenge, isLoading, error } = useChallengeStore();
 
-  const onClickDelteChallenge = async () => {
-    await deleteChallenge(challengeId);
-    toast.success(
-      "Challenge deleted successfully, please reload the page to see update!"
-    );
+  const onClickDelteChallenge = () => {
+    getChallengeId(challengeId);
   };
 
   return (

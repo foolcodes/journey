@@ -10,10 +10,7 @@ const Note = ({ achieve = "" }) => {
     setData(event.target.value);
   };
   return (
-    <div
-      data-aos="fade-left"
-      className="bg-gray-900 rounded-xl p-4 max-w-[22vw]"
-    >
+    <div className="bg-gray-900 rounded-xl p-4 max-w-[22vw]">
       <h1 className="gradient-text text-2xl mb-3 font-semibold">
         Aim of the Challenge
       </h1>
