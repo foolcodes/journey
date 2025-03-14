@@ -39,7 +39,7 @@ const Overview = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen bg-[#080C18] overflow-auto p-10 pt-5">
+    <div className="w-full h-screen bg-[#080C18] overflow-auto p-10 pt-5 flex flex-col justify-center">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-gray-50 text-2xl">OVERVIEW</h1>
         <div className="flex">

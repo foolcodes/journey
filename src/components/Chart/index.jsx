@@ -24,7 +24,8 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-const Chart = ({ data, presentDay }) => {
+const Chart = ({ data, presentDay, border = false }) => {
+  console.log(data);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,23 +38,29 @@ const Chart = ({ data, presentDay }) => {
     day: `Day ${eachItem.day}`,
   }));
 
+  const classname = border
+    ? "bg-[#111827] p-5 rounded-md border border-solid border-gray-600"
+    : "bg-[#111827] p-5 rounded-md";
+
   return (
     <SkeletonTheme baseColor="#374151" highlightColor="#4B5563">
-      <div className="bg-[#111827] p-5 rounded-md">
+      <div className={classname}>
         <div className="flex justify-between">
           <h1 className="text-gray-50 text-xl ps-14 pb-10">
             {loading ? <Skeleton width={120} height={24} /> : "Performance"}
           </h1>
-          <h1 className="text-gray-50 text-xl ps-14 pb-10 pe-10">
-            {loading ? (
-              <Skeleton width={80} height={24} />
-            ) : (
-              `Day ${presentDay}`
-            )}
-          </h1>
+          {presentDay && (
+            <h1 className="text-gray-50 text-xl ps-14 pb-10 pe-10">
+              {loading ? (
+                <Skeleton width={80} height={24} />
+              ) : (
+                `Day ${presentDay}`
+              )}
+            </h1>
+          )}
         </div>
 
-        <div style={{ width: "100%", height: "38vh" }}>
+        <div style={{ width: "100%", height: "36vh" }}>
           {loading ? (
             <Skeleton height={"100%"} width={"100%"} />
           ) : (

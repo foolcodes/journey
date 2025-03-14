@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
 
-const StatisticsCard = ({ itemDetails }) => {
+const StatisticsCard = ({ itemDetails, border = false }) => {
   const { title, value, color } = itemDetails;
+
+  const classname = border
+    ? "bg-[#111827] bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl border border-solid border-gray-500"
+    : "bg-[#111827] bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl";
 
   return (
     <motion.div
-      className="bg-[#111827] bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl "
+      className={classname}
       whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
     >
       <div className="px-4 py-5 sm:p-6">

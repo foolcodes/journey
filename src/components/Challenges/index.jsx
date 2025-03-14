@@ -9,6 +9,7 @@ import { useChallengeStore } from "../../store/challengesStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import toast from "react-hot-toast";
+import ChallengeDataModalFromId from "../ChallengeDataModalFromId";
 
 const Challenges = () => {
   const [data, setData] = useState([]);
@@ -17,9 +18,18 @@ const Challenges = () => {
   const [showDelteModal, setDeleteModal] = useState(false);
   const [deleteChallengeId, setDeleteChallengeId] = useState("");
   const [challengeModal, toggleChalengeModal] = useState(false);
+  const [showChallengeDataModalFromId, setShowChallengeDataModalFromId] =
+    useState(false);
+  const [challengeDataFromId, setChallengeDataFromId] = useState("");
 
-  const { getChallenges, isLoading, error, getAim, deleteChallenge } =
-    useChallengeStore();
+  const {
+    getChallenges,
+    isLoading,
+    error,
+    getAim,
+    deleteChallenge,
+    getChallengeFromChallengeId,
+  } = useChallengeStore();
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -45,7 +55,7 @@ const Challenges = () => {
     };
 
     fetchChallenges();
-  }, [getChallenges]);
+  }, []);
 
   useEffect(() => {
     const fetchAimData = async () => {
@@ -64,7 +74,7 @@ const Challenges = () => {
       }
     };
     fetchAimData();
-  }, [getAim]);
+  }, []);
 
   // Skeleton loaders for challenge cards
   const ChallengeCardSkeleton = () => (
@@ -134,9 +144,7 @@ const Challenges = () => {
   );
 
   //getting challenge id from the challengeModal component
-
   const getChallengeId = (challengeId) => {
-    console.log(challengeId);
     setDeleteChallengeId(challengeId);
     setDeleteModal(true);
   };
@@ -149,6 +157,22 @@ const Challenges = () => {
       "Challenge deleted successfully, please reload the page to see update!"
     );
     setDeleteModal(false);
+  };
+
+  const onClickShowChallengeDataModal = async (challengeId) => {
+    setShowChallengeDataModalFromId(true);
+    setLoading(true);
+
+    try {
+      const response = await getChallengeFromChallengeId(challengeId);
+      if (response) {
+        setChallengeDataFromId(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching challenge data:", error);
+    }
+
+    setLoading(false); // Stop loading only after API response is handled
   };
 
   return (
@@ -185,6 +209,7 @@ const Challenges = () => {
                 challengeDetails={eachItem}
                 key={eachItem.challengeId}
                 getChallengeId={getChallengeId}
+                showChallengeDataModal={onClickShowChallengeDataModal}
               />
             ))
           )}
@@ -249,6 +274,14 @@ const Challenges = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* On click challenge Card show challenge data */}
+      {showChallengeDataModalFromId && !loading && challengeDataFromId && (
+        <ChallengeDataModalFromId
+          data={challengeDataFromId}
+          onClose={() => setShowChallengeDataModalFromId(false)}
+        />
+      )}
     </div>
   );
 };

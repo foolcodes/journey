@@ -9,25 +9,27 @@ const STATUS_COLOR = {
   abandoned: "bg-red",
 };
 
-const ChallengeCard = ({ challengeDetails, getChallengeId }) => {
+const ChallengeCard = ({
+  challengeDetails,
+  getChallengeId,
+  showChallengeDataModal,
+}) => {
   const { title, status, challengeId } = challengeDetails;
-  const { getChallengeFromChallengeId } = useChallengeStore();
   const [isHovered, setIsHovered] = useState(false);
 
-  const onClickDelteChallenge = () => {
+  const onClickDeleteChallenge = () => {
     getChallengeId(challengeId);
   };
 
-  const getDataFromChallengeId = async () => {
-    const response = await getChallengeFromChallengeId(challengeId);
-    console.log("Data is", response);
+  const showChallengeData = () => {
+    showChallengeDataModal(challengeId);
   };
 
   return (
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={getDataFromChallengeId}
+      onClick={showChallengeData}
       className="cursor-pointer relative bg-[#111827] bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl border border-gray-700 m-3 max-h-32"
       whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
     >
@@ -38,7 +40,7 @@ const ChallengeCard = ({ challengeDetails, getChallengeId }) => {
             <motion.button
               whileHover={{ scale: 1.2 }}
               className="text-red-800 cursor-pointer"
-              onClick={onClickDelteChallenge}
+              onClick={onClickDeleteChallenge}
             >
               <Trash size={20} />
             </motion.button>
