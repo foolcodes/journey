@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import { data } from "autoprefixer";
 
 const API_URL = "http://localhost:5000/challenges";
 
@@ -92,6 +93,21 @@ export const useChallengeStore = create((set, get) => ({
         error: error.response?.data?.message || "Error deleting challenge",
       });
       throw error;
+    }
+  },
+
+  getChallengeFromChallengeId: async (challengeId) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.get(`${API_URL}/${challengeId}`);
+      set({ isLoading: false, data: response.data });
+      return response.data;
+    } catch (error) {
+      set({ isLoading: false, error: error.message });
+      console.log(
+        "Error fetching challenge data with challenge id",
+        error.message
+      );
     }
   },
 }));

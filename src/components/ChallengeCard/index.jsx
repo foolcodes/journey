@@ -2,22 +2,32 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Trash } from "lucide-react";
 import { useChallengeStore } from "../../store/challengesStore";
-import toast from "react-hot-toast";
+
+const STATUS_COLOR = {
+  active: "bg-[#FFBF00]",
+  completed: "bg-green",
+  abandoned: "bg-red",
+};
 
 const ChallengeCard = ({ challengeDetails, getChallengeId }) => {
   const { title, status, challengeId } = challengeDetails;
+  const { getChallengeFromChallengeId } = useChallengeStore();
   const [isHovered, setIsHovered] = useState(false);
-
-  const { deleteChallenge, isLoading, error } = useChallengeStore();
 
   const onClickDelteChallenge = () => {
     getChallengeId(challengeId);
+  };
+
+  const getDataFromChallengeId = async () => {
+    const response = await getChallengeFromChallengeId(challengeId);
+    console.log("Data is", response);
   };
 
   return (
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={getDataFromChallengeId}
       className="cursor-pointer relative bg-[#111827] bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl border border-gray-700 m-3 max-h-32"
       whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
     >
@@ -34,9 +44,13 @@ const ChallengeCard = ({ challengeDetails, getChallengeId }) => {
             </motion.button>
           )}
         </div>
-        <div className="flex items-center text-sm font-medium">
-          <span className="bg-[#FFBF00] rounded-2xl h-3 w-3 mr-2 mt-2"></span>
-          <p className="mt-1 text-gray-400">{status}</p>
+        <div className="flex items-center text-sm font-medium mt-1">
+          <span
+            className={`${STATUS_COLOR[status]} align-middle rounded-2xl h-3 w-3 mr-2 mt-2`}
+          ></span>
+          <p className="mt-1 text-gray-400">
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </p>
         </div>
       </div>
     </motion.div>

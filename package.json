@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@tailwindcss/vite": "^4.0.9",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.8.2",

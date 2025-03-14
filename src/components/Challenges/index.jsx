@@ -23,6 +23,7 @@ const Challenges = () => {
 
   useEffect(() => {
     const fetchChallenges = async () => {
+      console.log("Fetching challenges");
       try {
         setLoading(true); // Start loading
         const response = await getChallenges();
@@ -162,7 +163,7 @@ const Challenges = () => {
         </button>
       </div>
       <div className="flex mt-8">
-        <div className="bg-gray-900 mr-7 min-h-[70vh] max-h-[80vh] min-w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar">
+        <div className="bg-gray-900 mr-7 min-h-[70vh] max-h-[80vh] min-w-[62vw] max-w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar">
           {loading || isLoading ? (
             // Showing skeleton loaders while loading
             Array(6)

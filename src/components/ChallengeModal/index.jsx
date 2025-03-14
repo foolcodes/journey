@@ -17,7 +17,8 @@ const ChallengeModal = ({ onCloseChallengeModal }) => {
 
     if (!response) {
       toast.error("Cannot add a challenge when one challenge is active!");
-      return;
+      onCloseChallengeModal();
+      return null;
     }
     if (!isLoading) {
       onCloseChallengeModal();

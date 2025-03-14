@@ -1,4 +1,3 @@
-import { User } from "../models/user.model.js";
 import { Challenge } from "../models/user.challenges.js";
 import { ChallengeData } from "../models/user.challenge.data.js";
 
@@ -130,5 +129,25 @@ export const getAim = async (req, res) => {
       success: false,
       message: error.message || "Unable to gather aim",
     });
+  }
+};
+
+export const getChallengeDataFromId = async (req, res) => {
+  try {
+    const { challengeId } = req.params;
+    const response = await ChallengeData.find({ challenge: challengeId });
+
+    if (!response) {
+      res
+        .status(400)
+        .json({ success: false, error: "No Challenge Data Found" });
+    }
+
+    res.status(200).json({ success: true, data: response });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: error.message || "Error while fetching Challenge Data" });
+    console.log("Error while fetching Challenge data");
   }
 };
