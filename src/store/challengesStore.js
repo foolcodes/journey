@@ -1,7 +1,5 @@
 import { create } from "zustand";
 import axios from "axios";
-import { data } from "autoprefixer";
-
 const API_URL = "http://localhost:5000/challenges";
 
 axios.defaults.withCredentials = true;
@@ -108,6 +106,22 @@ export const useChallengeStore = create((set, get) => ({
         "Error fetching challenge data with challenge id",
         error.message
       );
+    }
+  },
+
+  updateNote: async (updatedNote) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/update-note`, {
+        updatedNote,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log("Error while updating aim", error);
+      set({
+        isLoading: false,
+        error: error.message || "Challenge must be active to change the AIM!",
+      });
     }
   },
 }));

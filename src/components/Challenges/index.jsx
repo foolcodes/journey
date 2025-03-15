@@ -74,7 +74,12 @@ const Challenges = () => {
       }
     };
     fetchAimData();
-  }, []);
+  }, [aimData]);
+
+  const setAimData = (updatedAimData) => {
+    setAim(updatedAimData);
+    toast.success("Updated Successfully");
+  };
 
   // Skeleton loaders for challenge cards
   const ChallengeCardSkeleton = () => (
@@ -214,7 +219,11 @@ const Challenges = () => {
             ))
           )}
         </div>
-        {loading || isLoading ? <NoteSkeleton /> : <Note achieve={aimData} />}
+        {loading || isLoading ? (
+          <NoteSkeleton />
+        ) : (
+          <Note achieve={aimData} setAimData={setAimData} />
+        )}
       </div>
       {challengeModal && (
         <ChallengeModal

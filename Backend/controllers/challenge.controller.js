@@ -151,3 +151,29 @@ export const getChallengeDataFromId = async (req, res) => {
     console.log("Error while fetching Challenge data");
   }
 };
+
+export const updateNote = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { updatedNote } = req.body;
+
+    const update = await Challenge.updateOne(
+      { user: userId, status: "active" },
+      { $set: { aim: updatedNote } },
+      { new: true }
+    );
+
+    if (!update) {
+      res
+        .status(400)
+        .json({ success: false, message: "No active challenge found!" });
+    }
+
+    res.status(200).json({ success: true, update });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message || "Error while updating AIM!",
+    });
+  }
+};
