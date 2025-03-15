@@ -4,9 +4,12 @@ import StatisticsCard from "../StatisticsCard";
 import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import DayWiseNotesViewer from "../DayWiseNotesViewer";
 
 const ChallengeDataModalFromId = ({ data, onClose }) => {
   const [isLoading, setLoading] = useState(true);
+
+  const [showDayWiseNotesViewer, setDayWiseNotesViewer] = useState(false);
 
   useEffect(() => {
     const fakeLoad = setTimeout(() => setLoading(false), 2000); // Simulate loading delay
@@ -116,9 +119,17 @@ const ChallengeDataModalFromId = ({ data, onClose }) => {
 
           {/* Chart section */}
           <div className="mb-4">
-            <h2 className="text-gray-300 text-lg mb-4 font-medium">
-              Progress Chart
-            </h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-gray-300 text-lg mb-4 font-medium">
+                Progress Chart
+              </h2>
+              <button
+                onClick={() => setDayWiseNotesViewer(true)}
+                className="px-4 py-2 mb-4 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition-colors flex items-center gap-2"
+              >
+                See Day-wise Notes
+              </button>
+            </div>
             {isLoading ? (
               <ChartSkeleton />
             ) : (
@@ -144,6 +155,13 @@ const ChallengeDataModalFromId = ({ data, onClose }) => {
           )}
         </div>
       </div>
+      {showDayWiseNotesViewer && (
+        <DayWiseNotesViewer
+          challengeId={data.challenge}
+          data={data}
+          onClose={() => setDayWiseNotesViewer(false)}
+        />
+      )}
     </div>
   );
 };

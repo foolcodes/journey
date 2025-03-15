@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, replace, useNavigate } from "react-router-dom";
 import { BarChart2, LogOut, TrendingUp, Menu, User, X } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 
@@ -21,8 +21,8 @@ const Sidebar = () => {
 
   const { logout, error } = useAuthStore();
 
-  const handleSignOut = () => {
-    logout();
+  const handleSignOut = async () => {
+    await logout();
     setShowSignOutModal(false);
   };
 
@@ -102,7 +102,7 @@ const Sidebar = () => {
                 </div>
               ))}
             </div>
-            <Link key={"/user"} to={"/user"}>
+            <Link key={"/profile"} to={"/profile"}>
               <motion.div className="flex items-center p-3 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors mb-2">
                 <User size={20} style={{ color: "green", minWidth: "20px" }} />
                 <AnimatePresence>

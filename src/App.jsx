@@ -45,7 +45,7 @@ const ProtectedRoute = ({ children }) => {
     if (!user.isVerified) {
       return navigate("/verify-email", { replace: true });
     }
-  }, [isAuthenticated, user, navigate]);
+  }, [isAuthenticated, user]);
   return children;
 };
 
@@ -115,7 +115,7 @@ const App = () => {
         />
         <Route
           exact
-          path="/user"
+          path="/profile"
           element={
             <ProtectedRoute>
               <User />
