@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserModal from "../UserModal";
 
 import { PencilIcon } from "lucide-react";
 
 import { useAuthStore } from "../../store/authStore";
+import { useProfileStore } from "../../store/profileStore";
+import toast from "react-hot-toast";
 
 const User = () => {
   const { user } = useAuthStore();
+  const { updateProfileDetails } = useProfileStore();
 
   const [showModal, toggleShowModal] = useState(false);
   const [image, setImage] = useState(
-    "https://avatarfiles.alphacoders.com/161/161002.jpg"
+    user.imageUrl || "https://avatarfiles.alphacoders.com/161/161002.jpg"
   );
+
+  const [name, setName] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [about, setAbout] = useState(null);
+
+  const onSubmitUpdateDetails = async (event) => {
+    event.preventDefault();
+    if (password === confirmPassword) {
+      await updateProfileDetails(image, password, name, about);
+    }
+    toast.success("Details updated successfully");
+  };
 
   const onImageSelectedUrl = (url) => {
     setImage(url);
@@ -25,47 +41,54 @@ const User = () => {
           <h1 className="text-white font-semibold text-sm mb-8">
             Edit Profile
           </h1>
-          <form>
+          <form onSubmit={onSubmitUpdateDetails}>
             <div className="flex justify-between w-[70%] mb-8">
-              <div>
-                <h2 className="text-gray-300 text-sm mb-3">Username</h2>
-                <input
-                  placeholder="fool"
-                  type="text"
-                  className="w-70 mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
-                />
-              </div>
-              <div>
+              <div className="mr-10">
                 <h2 className="text-gray-300 text-sm mb-3">Email</h2>
                 <input
-                  placeholder={user.email}
+                  disabled
+                  value={user.email} // Use `value` instead of `placeholder` for better readability
                   type="text"
-                  className="w-70 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
+                  className="w-70 border border-gray-700 bg-transparent text-white text-sm focus:outline-none p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
-            </div>
-            <div className="flex justify-between w-[70%] mb-8">
+
               <div>
-                <h2 className="text-gray-300 text-sm mb-3">First Name</h2>
+                <h2 className="text-gray-300 text-sm mb-3">Name</h2>
                 <input
+                  onChange={(e) => setName(e.target.value)}
                   placeholder={user.name}
                   type="text"
                   className="w-70 mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />
               </div>
-              <div>
-                <h2 className="text-gray-300 text-sm mb-3">Last Name</h2>
+            </div>
+
+            <div className="flex justify-between w-[70%] mb-8">
+              <div className="mr-10">
+                <h2 className="text-gray-300 text-sm mb-3">Password</h2>
                 <input
-                  placeholder="fool@gmail.com"
-                  type="text"
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  type="password"
                   className="w-70 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
+                />
+              </div>
+              <div>
+                <h2 className="text-gray-300 text-sm mb-3">Confirm Password</h2>
+                <input
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm password"
+                  type="password"
+                  className="w-70 mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />
               </div>
             </div>
             <div className="flex flex-col">
               <h2 className="text-gray-300 text-sm mb-3">About Me</h2>
               <input
-                placeholder="fool@gmail.com"
+                onChange={(e) => setAbout(e.target.value)}
+                placeholder="Write about yourself"
                 type="text"
                 className="w-70 mb-12 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
               />
@@ -90,11 +113,10 @@ const User = () => {
               <PencilIcon size={"14px"} color="gray" />
             </button>
           </div>
-          <h1 className="text-gray-300 text-xl font-semibold mb-7">Foolish</h1>
-          <p className="text-gray-300 font-normal">
-            I am gonna nail the challenge and be very productive throughtout the
-            challenge.
-          </p>
+          <h1 className="text-gray-300 text-xl font-semibold mb-7">
+            {user.name}
+          </h1>
+          <p className="text-gray-300 font-normal">{user.about}</p>
         </div>
       </div>
       {showModal && (
