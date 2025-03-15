@@ -23,6 +23,7 @@ export const getCurrentDay = async (req, res) => {
         .json({ success: false, error: "No active challenge found" });
     }
 
+    const challengeDuration = response.title;
     const startDate = new Date(response.startDate);
     const startDay = startDate.getUTCDate();
     const currentDay = response.currentDay;
@@ -32,7 +33,8 @@ export const getCurrentDay = async (req, res) => {
     const presentDay = todayDay - startDay + currentDay + 1;
 
     console.log("present day is", presentDay);
-    res.status(200).json({ success: true, presentDay });
+    console.log("Challenge duration is ", challengeDuration);
+    res.status(200).json({ success: true, presentDay, challengeDuration });
   } catch (error) {
     console.log("Error while calculating present day:", error.message);
     res.status(500).json({ success: false, error: error.message });
@@ -135,6 +137,46 @@ export const getDaysData = async (req, res) => {
     res.status(400).json({
       success: false,
       error: error.message || "Error while fetching challenge data!",
+    });
+  }
+};
+
+export const updateTitle = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { newTitle, challengeId } = req.body;
+
+    const prevDetails = await Challenge.findById(challengeId);
+
+    if (!prevDetails) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Cant find the challenge!" });
+    }
+    const prevTitle = Number(prevDetails.title);
+
+    const response = await Challenge.findByIdAndUpdate(
+      challengeId,
+      { $set: { title: prevTitle + newTitle } },
+      { new: true }
+    );
+
+    if (!response) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Update failed!" });
+    }
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Challenge title updated!",
+        updatedChallenge: response,
+      });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message || "Error while updating title!",
     });
   }
 };

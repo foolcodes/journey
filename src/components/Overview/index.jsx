@@ -6,10 +6,15 @@ import ShinyButton from "../ShinyButton/ShinyButton";
 import { useOverviewStore } from "../../store/overviewStore";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import ExtendChallengeModal from "../ExtendChallengeModal";
 
 const Overview = () => {
   const [modal, toggleModal] = useState(false);
+  const [showExtendChallengeModal, setShowExtendChallengeModal] =
+    useState(false);
+  const [challengeId, setChallengeId] = useState(null);
   const [presentDay, setPresentDay] = useState(null);
+
   const {
     getCurrentDay,
     getChallengeData,
@@ -19,6 +24,7 @@ const Overview = () => {
     weeklyHours,
     totalHours,
     dailyHours,
+    updateTitle,
   } = useOverviewStore();
 
   const details = [
@@ -31,12 +37,26 @@ const Overview = () => {
   useEffect(() => {
     const fetchData = async () => {
       const currentDate = Date.now();
-      const presentDay = await getCurrentDay(currentDate);
-      await getChallengeData();
+      const data = await getCurrentDay(currentDate);
+      const presentDay = data.presentDay;
+      const challengeDuration = data.challengeDuration;
+      const response = await getChallengeData();
+      const lastDay =
+        response.length > 0 ? response[response.length - 1].day : null;
+
+      if (lastDay === Number(challengeDuration)) {
+        setChallengeId(response[0].challenge);
+        setShowExtendChallengeModal(true);
+      }
       setPresentDay(presentDay);
     };
     fetchData();
   }, []);
+
+  const updateChallengeTitle = async (additionalDays) => {
+    const response = await updateTitle(additionalDays, challengeId);
+    console.log(response);
+  };
 
   return (
     <div className="w-full h-screen bg-[#080C18] overflow-auto p-10 pt-5 flex flex-col justify-center">
@@ -94,6 +114,12 @@ const Overview = () => {
 
       {modal && (
         <DayModal presentDay={presentDay} onClose={() => toggleModal(false)} />
+      )}
+      {showExtendChallengeModal && (
+        <ExtendChallengeModal
+          onClose={() => setShowExtendChallengeModal(false)}
+          onSubmit={updateChallengeTitle}
+        />
       )}
     </div>
   );

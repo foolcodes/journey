@@ -23,7 +23,7 @@ export const useOverviewStore = create((set, get) => ({
       });
 
       set({ isLoading: false });
-      return response.data.presentDay;
+      return response.data;
     } catch (error) {
       set({
         isLoading: false,
@@ -70,6 +70,24 @@ export const useOverviewStore = create((set, get) => ({
         error: error.message || "Error while getting the data!",
       });
       throw error;
+    }
+  },
+
+  updateTitle: async (newTitle, challengeId) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/update-title`, {
+        newTitle,
+        challengeId,
+      });
+
+      set({ isLoading: false });
+      return `Title updated successfully ${response}`;
+    } catch (error) {
+      set({
+        isLoading: false,
+        error: error.message || "Error updating title!",
+      });
     }
   },
 }));

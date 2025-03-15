@@ -25,7 +25,6 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const Chart = ({ data, presentDay, border = false }) => {
-  console.log(data);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
