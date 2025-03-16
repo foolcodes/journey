@@ -4,8 +4,7 @@ const UserModal = ({ closeModal, onImageSelectedUrl }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      onImageSelectedUrl(url);
+      onImageSelectedUrl(file);
       closeModal();
     }
   };

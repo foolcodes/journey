@@ -1,15 +1,23 @@
 import bcryptjs from "bcryptjs";
 import { User } from "../models/user.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const updateDetails = async (req, res) => {
   try {
     const userId = req.userId;
-    const { imageUrl, password, name, about } = req.body;
+    const { password, name, about } = req.body;
+    const avatarLocalPath = req.file?.path;
+
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+
+    if (!avatar) {
+      console.log("Cannot upload on cloudinary!");
+    }
 
     // Create an object to store the fields that need to be updated
     const updatedFields = {};
 
-    if (imageUrl) updatedFields.imageUrl = imageUrl;
+    if (avatar) updatedFields.imageUrl = avatar.url;
     if (name) updatedFields.name = name;
     if (about) updatedFields.about = about;
 
