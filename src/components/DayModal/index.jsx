@@ -66,7 +66,8 @@ const DayModal = ({ onClose, onAddDailyData, presentDay }) => {
             </div>{" "}
             <textarea
               onChange={(e) => onSetTopics(e.target.value)}
-              placeholder="Topics Covered"
+              placeholder="We suggest you to write in this format.
+What did you learn? what hurdles did you face, and how did you overcome them?"
               className="border-none focus:outline-none p-3 pr-10 bg-white w-full text-black rounded text-sm resize-none h-24 mb-5 overflow-y-scroll custom-scrollbar"
             />
             <button className="text-white cursor-pointer bg-black rounded w-17 px-4 py-2 font-medium">

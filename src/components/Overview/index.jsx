@@ -3,17 +3,21 @@ import Chart from "../Chart";
 import StatisticsCard from "../StatisticsCard";
 import DayModal from "../DayModal";
 import ShinyButton from "../ShinyButton/ShinyButton";
+import ShareModal from "../ShareModal";
 import { useOverviewStore } from "../../store/overviewStore";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ExtendChallengeModal from "../ExtendChallengeModal";
+import { useAuthStore } from "../../store/authStore";
 
 const Overview = () => {
   const [modal, toggleModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false); // New state for share modal
   const [showExtendChallengeModal, setShowExtendChallengeModal] =
     useState(false);
   const [challengeId, setChallengeId] = useState(null);
   const [presentDay, setPresentDay] = useState(null);
+  const [userProfile, setUserProfile] = useState(null); // State to store user profile
 
   const {
     getCurrentDay,
@@ -26,6 +30,8 @@ const Overview = () => {
     dailyHours,
     updateTitle,
   } = useOverviewStore();
+
+  const { user } = useAuthStore();
 
   const details = [
     { title: "Month", value: `${monthlyHours || 0} Hours`, color: "#6366F1" },
@@ -49,6 +55,13 @@ const Overview = () => {
         setShowExtendChallengeModal(true);
       }
       setPresentDay(presentDay);
+
+      setUserProfile({
+        name: `${user.name}'s`,
+        profilePicture: user.imageUrl
+          ? user.imageUrl
+          : "/api/placeholder/150/150",
+      });
     };
     fetchData();
   }, []);
@@ -56,6 +69,11 @@ const Overview = () => {
   const updateChallengeTitle = async (additionalDays) => {
     const response = await updateTitle(additionalDays, challengeId);
     console.log(response);
+  };
+
+  // Handle share button click
+  const handleShareClick = () => {
+    setShowShareModal(true);
   };
 
   return (
@@ -69,7 +87,11 @@ const Overview = () => {
           >
             Add
           </button>
-          <ShinyButton title={"Share"} />
+          {/* Update the ShinyButton to call our handleShareClick function */}
+          <ShinyButton
+            title={"Share"}
+            onCLick={() => setShowShareModal(true)}
+          />
         </div>
       </div>
 
@@ -112,6 +134,7 @@ const Overview = () => {
         </div>
       </div>
 
+      {/* Modals */}
       {modal && (
         <DayModal presentDay={presentDay} onClose={() => toggleModal(false)} />
       )}
@@ -119,6 +142,16 @@ const Overview = () => {
         <ExtendChallengeModal
           onClose={() => setShowExtendChallengeModal(false)}
           onSubmit={updateChallengeTitle}
+        />
+      )}
+      {/* Add the ShareModal */}
+      {showShareModal && (
+        <ShareModal
+          onClose={() => setShowShareModal(false)}
+          challengeData={challengeData}
+          presentDay={presentDay}
+          hours={dailyHours}
+          userProfile={userProfile}
         />
       )}
     </div>

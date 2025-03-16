@@ -12,9 +12,7 @@ const User = () => {
   const { updateProfileDetails } = useProfileStore();
 
   const [showModal, toggleShowModal] = useState(false);
-  const [image, setImage] = useState(
-    user.imageUrl || "https://avatarfiles.alphacoders.com/161/161002.jpg"
-  );
+  const [image, setImage] = useState(user.imageUrl);
 
   const [name, setName] = useState(null);
   const [password, setPassword] = useState(null);

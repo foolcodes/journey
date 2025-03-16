@@ -13,7 +13,7 @@ const Header = () => {
         <h1 className="text-3xl font-extrabold gradient-text">Journey</h1>
       </div>
       <div className="flex">
-        <ShinyButton title={"Login"} />
+        <ShinyButton title={"Login"} onCLick={() => navigate("/login")} />
         <button
           onClick={() => navigate("/signup")}
           className="mr-4 ml-4 text-white cursor-pointer bg-indigo-600 p-2 rounded-2xl w-23 font-medium button"
