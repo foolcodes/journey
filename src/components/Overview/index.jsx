@@ -12,12 +12,12 @@ import { useAuthStore } from "../../store/authStore";
 
 const Overview = () => {
   const [modal, toggleModal] = useState(false);
-  const [showShareModal, setShowShareModal] = useState(false); // New state for share modal
+  const [showShareModal, setShowShareModal] = useState(false);
   const [showExtendChallengeModal, setShowExtendChallengeModal] =
     useState(false);
   const [challengeId, setChallengeId] = useState(null);
   const [presentDay, setPresentDay] = useState(null);
-  const [userProfile, setUserProfile] = useState(null); // State to store user profile
+  const [userProfile, setUserProfile] = useState(null);
 
   const {
     getCurrentDay,
@@ -71,23 +71,23 @@ const Overview = () => {
     console.log(response);
   };
 
-  // Handle share button click
-  const handleShareClick = () => {
-    setShowShareModal(true);
+  const challengeCompleted = async () => {
+    setShowExtendChallengeModal(false);
+    await changeChallengeStatus("completed");
   };
 
   return (
-    <div className="w-full h-screen bg-[#080C18] overflow-auto p-10 pt-5 flex flex-col justify-center">
-      <div className="flex justify-between items-center mb-8">
+    <div className="w-full min-h-screen bg-gradient-to-b from-[#080C18] to-[#111827] overflow-auto p-4 sm:p-6 lg:p-10">
+      {/* Header */}
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-8">
         <h1 className="text-gray-50 text-2xl">OVERVIEW</h1>
-        <div className="flex">
+        <div className="flex flex-wrap gap-3">
           <button
             onClick={() => toggleModal(true)}
-            className="text-gray-200 hover:text-white transition duration-300 cursor-pointer bg-indigo-600 rounded-xl w-17 px-4 py-2 mr-3 font-medium"
+            className="text-gray-200 hover:text-white transition duration-300 cursor-pointer bg-indigo-600 rounded-xl px-4 py-2 font-medium"
           >
             Add
           </button>
-          {/* Update the ShinyButton to call our handleShareClick function */}
           <ShinyButton
             title={"Share"}
             onCLick={() => setShowShareModal(true)}
@@ -96,7 +96,7 @@ const Overview = () => {
       </div>
 
       {/* Statistics Cards section */}
-      <div className="grid grid-cols-4 gap-8 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         {isLoading
           ? [...Array(4)].map((_, index) => (
               <div key={index} className="bg-[#111827] rounded-xl p-4">
@@ -140,11 +140,10 @@ const Overview = () => {
       )}
       {showExtendChallengeModal && (
         <ExtendChallengeModal
-          onClose={() => setShowExtendChallengeModal(false)}
+          onClose={challengeCompleted}
           onSubmit={updateChallengeTitle}
         />
       )}
-      {/* Add the ShareModal */}
       {showShareModal && (
         <ShareModal
           onClose={() => setShowShareModal(false)}

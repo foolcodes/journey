@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { useState } from "react";
@@ -21,33 +20,55 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-full bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
+    <div className="flex justify-center items-center min-h-screen w-full bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] p-4">
       <div
         data-aos="fade-down"
-        className="flex shadow-xl h-[450px] w-[750px] relative bg-white rounded-3xl overflow-hidden"
+        className="flex flex-col md:flex-row shadow-xl min-h-[450px] w-[750px] relative bg-white rounded-3xl overflow-hidden"
       >
+        {/* Welcome Back Section */}
+        <div
+          data-aos="fade-right" // Default for mobile// Custom attr (explained below)
+          className="bg-gradient-to-r from-[#512da8] to-[#5c6bc0] md:rounded-r-[160px] rounded-t-3xl md:rounded-t-none w-full md:w-[50%] flex justify-center items-center text-white py-8 md:py-0 px-6"
+        >
+          <div className="toggle-panel text-center">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              Welcome Back!
+            </h1>
+            <p className="text-sm mb-5">Don't have an account?</p>
+            <button
+              onClick={() => navigate("/signup", { replace: true })}
+              className="bg-transparent w-full max-w-[180px] p-2 rounded-xl shadow-2xs border-1 border-solid border-white cursor-pointer text-white font-semibold"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+
+        {/* Login Form Section */}
         <div
           data-aos="fade-left"
-          className="absolute w-[50%] h-[100%] right-0 flex items-center text-center z-10"
+          className="w-full md:w-[50%] flex items-center text-center p-6 md:p-0"
         >
           <form
             onSubmit={handleLoginSubmit}
-            className="flex flex-col items-center w-[100%]"
+            className="flex flex-col items-center w-full"
           >
-            <h1 className="font-bold text-[#333] text-4xl">Login</h1>
-            <div className="flex relative m-[30px]">
+            <h1 className="font-bold text-[#333] text-3xl md:text-4xl mb-2">
+              Login
+            </h1>
+            <div className="flex relative my-5 w-full max-w-[300px]">
               <input
                 type="text"
                 required
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="input-box"
+                className="input-box mb-2"
               />
               <FaEnvelope className="input-icon top-3.5" />
             </div>
 
-            <div className="flex relative mb-[30px]">
+            <div className="flex relative mb-5 w-full max-w-[300px]">
               <input
                 type="password"
                 required
@@ -59,7 +80,7 @@ const Login = () => {
               <FaLock className="input-icon top-3.5" />
             </div>
 
-            <div className="flex items-center mb-6">
+            <div className="flex items-center mb-4 w-full max-w-[300px] justify-center">
               <Link
                 to="/forgot-password"
                 className="text-sm font-semibold text-[#512da8] hover:underline"
@@ -74,7 +95,7 @@ const Login = () => {
 
             <button
               disabled={isLoading}
-              className="bg-[#512da8] w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold"
+              className="bg-[#512da8] w-full max-w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold"
             >
               {isLoading ? (
                 <Loader className="w-6 h-6 mx-auto animate-spin" />
@@ -83,21 +104,6 @@ const Login = () => {
               )}
             </button>
           </form>
-        </div>
-        <div
-          data-aos="fade-right"
-          className="bg-gradient-to-r from-[#512da8] to-[#5c6bc0] rounded-r-[160px] toggle-box absolute h-[100%] w-[50%] flex justify-center items-center text-white z-20"
-        >
-          <div className="toggle-panel text-center">
-            <h1 className="text-4xl font-bold mb-3">Welcome Back!</h1>
-            <p className="text-sm mb-5">Don't have an account?</p>
-            <button
-              onClick={() => navigate("/signup", { replace: true })}
-              className="bg-transparent w-44 p-2 rounded-xl shadow-2xs border-1 border-solid border-white cursor-pointer text-white font-semibold"
-            >
-              Register
-            </button>
-          </div>
         </div>
       </div>
     </div>

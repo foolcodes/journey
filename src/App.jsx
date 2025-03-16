@@ -6,6 +6,8 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import { Navigate } from "react-router-dom";
+
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -20,7 +22,7 @@ import { useEffect } from "react";
 import Loading from "./components/Loading";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
-
+import NotFound from "./components/NotFound";
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
   const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
   const noSidebarRoutes = [
     "/",
     "/login",
@@ -59,6 +62,7 @@ const App = () => {
     "/verify-email",
     "/forgot-password",
     "/reset-password/:token",
+    "/not-found",
   ];
   const showSidebar =
     !noSidebarRoutes.includes(location.pathname) &&
@@ -142,6 +146,8 @@ const App = () => {
             </RedirectAuthenticatedUser>
           }
         />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
       <Toaster />
     </div>

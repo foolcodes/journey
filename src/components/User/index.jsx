@@ -32,22 +32,22 @@ const User = () => {
   };
 
   return (
-    <div className="bg-[#080C18] h-screen w-full p-10 pt-4">
+    <div className="bg-[#080C18] min-h-screen w-full p-4 md:p-8 md:pt-6 pt-4 overflow-auto custom-scrollbar">
       <h1 className="text-gray-50 text-2xl">USER PROFILE</h1>
-      <div className="flex justify-center items-center">
-        <div className="bg-[#111827] p-10 mt-8 rounded-md pe-30">
+      <div className="flex flex-col lg:flex-row justify-center items-center">
+        <div className="bg-[#111827] p-4 md:p-10 mt-5 rounded-md w-full lg:w-auto">
           <h1 className="text-white font-semibold text-sm mb-8">
             Edit Profile
           </h1>
           <form onSubmit={onSubmitUpdateDetails}>
-            <div className="flex justify-between w-[70%] mb-8">
-              <div className="mr-10">
+            <div className="flex flex-col md:flex-row justify-between w-full md:w-[70%] mb-8">
+              <div className="mb-4 md:mb-0 md:mr-10">
                 <h2 className="text-gray-300 text-sm mb-3">Email</h2>
                 <input
                   disabled
-                  value={user.email} // Use `value` instead of `placeholder` for better readability
+                  value={user.email}
                   type="text"
-                  className="w-70 border border-gray-700 bg-transparent text-white text-sm focus:outline-none p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full md:w-70 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -57,19 +57,19 @@ const User = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder={user.name}
                   type="text"
-                  className="w-70 mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
+                  className="w-full md:w-70 md:mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />
               </div>
             </div>
 
-            <div className="flex justify-between w-[70%] mb-8">
-              <div className="mr-10">
+            <div className="flex flex-col md:flex-row justify-between w-full md:w-[70%] mb-8">
+              <div className="mb-4 md:mb-0 md:mr-10">
                 <h2 className="text-gray-300 text-sm mb-3">Password</h2>
                 <input
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   type="password"
-                  className="w-70 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
+                  className="w-full md:w-70 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />
               </div>
               <div>
@@ -78,7 +78,7 @@ const User = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm password"
                   type="password"
-                  className="w-70 mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
+                  className="w-full md:w-70 md:mr-8 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
                 />
               </div>
             </div>
@@ -88,7 +88,7 @@ const User = () => {
                 onChange={(e) => setAbout(e.target.value)}
                 placeholder="Write about yourself"
                 type="text"
-                className="w-70 mb-12 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
+                className="w-full md:w-70 mb-12 border border-gray-700 bg-transparent text-gray-100 text-sm focus:outline-none p-2 rounded-md"
               />
               <button className="bg-linear-to-bl from-indigo-500 to-purple-500 w-[100px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold">
                 Save
@@ -97,7 +97,7 @@ const User = () => {
           </form>
         </div>
 
-        <div className="bg-[#111827] ml-7 relative flex flex-col justify-center items-center p-6 rounded-md">
+        <div className="bg-[#111827] w-full lg:w-auto lg:ml-7 mt-6 lg:mt-0 relative flex flex-col justify-center items-center p-6 rounded-md">
           <div className="relative mb-6">
             <img
               src={image}
@@ -105,7 +105,7 @@ const User = () => {
               className="w-[150px] h-[150px] rounded-full border-2 border-gray-200"
             />
             <button
-              onClick={toggleShowModal}
+              onClick={() => toggleShowModal(true)}
               className="absolute -bottom-3 left-0 right-0 m-auto w-fit p-[.35rem] rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-600 cursor-pointer"
             >
               <PencilIcon size={"14px"} color="gray" />
@@ -114,7 +114,7 @@ const User = () => {
           <h1 className="text-gray-300 text-xl font-semibold mb-7">
             {user.name}
           </h1>
-          <p className="text-gray-300 font-normal">{user.about}</p>
+          <p className="text-gray-300 font-normal text-center">{user.about}</p>
         </div>
       </div>
       {showModal && (

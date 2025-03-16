@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { FaEnvelope } from "react-icons/fa6";
@@ -31,78 +30,85 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-full bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
+    <div className="flex justify-center items-center min-h-screen w-full bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] p-4">
       <div
         data-aos="fade-down"
-        className="flex shadow-xl h-[450px] w-[750px] relative bg-white rounded-3xl overflow-hidden"
+        className="flex flex-col md:flex-row shadow-xl min-h-[450px] w-full max-w-[750px] relative bg-white rounded-3xl overflow-hidden"
       >
+        {/* Register Form Section */}
         <div
           data-aos="fade-right"
-          className="absolute w-[50%] h-[100%] flex items-center text-center z-10"
+          className="w-full h-full md:w-[50%] md:absolute md:left-0 flex items-center text-center p-6 md:p-0 z-10"
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center w-[100%]"
+            className="flex flex-col items-center w-full"
           >
-            <h1 className="font-bold text-[#333] text-4xl">Register</h1>
-            <div className="flex relative m-[30px]">
+            <h1 className="font-bold text-[#333] text-3xl md:text-4xl mb-6">
+              Register
+            </h1>
+            <div className="flex relative my-4 w-full max-w-[300px]">
               <input
                 onChange={(e) => setName(e.target.value)}
                 type="text"
                 required
                 placeholder="Name"
-                className="input-box"
+                className="input-box w-full p-3 pl-10 border rounded-lg outline-none mb-2"
                 value={name}
               />
-              <FaUser className="input-icon" />
+              <FaUser className="absolute left-3 top-3.5 text-gray-400" />
             </div>
-            <div className="flex relative mb-[30px]">
+            <div className="flex relative mb-4 w-full max-w-[300px]">
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 required
                 placeholder="Email"
                 value={email}
-                className="input-box"
+                className="input-box w-full p-3 pl-10 border rounded-lg outline-none mb-2"
               />
-              <FaEnvelope className="input-icon" />
+              <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" />
             </div>
 
-            <div className="flex relative mb-[30px]">
+            <div className="flex relative mb-4 w-full max-w-[300px]">
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 required
                 placeholder="Password"
                 value={password}
-                className="input-box"
+                className="input-box w-full p-3 pl-10 border rounded-lg outline-none"
               />
-              <FaLock className="input-icon" />
+              <FaLock className="absolute left-3 top-3.5 text-gray-400" />
             </div>
             {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
             <button
               disabled={isLoading}
-              className="bg-[#512da8] w-[300px] p-2 rounded-xl shadow-2xs border-none cursor-pointer text-white font-semibold"
+              className="bg-[#512da8] mt-2 w-full max-w-[300px] p-2 rounded-xl shadow-md border-none cursor-pointer text-white font-semibold"
             >
               {isLoading ? (
-                <Loader className="animate-spin mx-auto" size={25} />
+                <Loader className="w-6 h-6 mx-auto animate-spin" />
               ) : (
                 "Register"
               )}
             </button>
           </form>
         </div>
+
+        {/* Hello Welcome Section */}
         <div
           data-aos="fade-left"
-          className="bg-gradient-to-r right-0 from-[#512da8] to-[#5c6bc0] rounded-l-[160px] toggle-box absolute h-[100%] w-[50%] flex justify-center items-center text-white"
+          className="bg-gradient-to-r from-[#512da8] to-[#5c6bc0] md:rounded-l-[160px] md:rounded-bl-[160px] rounded-b-3xl md:rounded-b-none md:right-0 md:absolute h-auto md:h-full w-full md:w-[50%] flex justify-center items-center text-white py-8 md:py-0 px-6 order-last"
         >
           <div className="toggle-panel text-center">
-            <h1 className="text-4xl font-bold mb-3">Hello, Welcome</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              Hello, Welcome
+            </h1>
             <p className="text-sm mb-5">Already have an account?</p>
             <button
               onClick={onClickNavigateToRegister}
-              className="bg-transparent w-44 p-2 rounded-xl shadow-2xs border-1 border-solid border-white cursor-pointer text-white font-semibold"
+              className="bg-transparent w-full max-w-[180px] p-2 rounded-xl shadow-md border border-solid border-white cursor-pointer text-white font-semibold"
             >
               Login
             </button>

@@ -28,7 +28,7 @@ const Chart = ({ data, presentDay, border = false }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fakeLoad = setTimeout(() => setLoading(false), 2000); // Simulate loading delay
+    const fakeLoad = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(fakeLoad);
   }, []);
 
@@ -38,18 +38,19 @@ const Chart = ({ data, presentDay, border = false }) => {
   }));
 
   const classname = border
-    ? "bg-[#111827] p-5 rounded-md border border-solid border-gray-600"
-    : "bg-[#111827] p-5 rounded-md";
+    ? "bg-[#111827] p-4 sm:p-6 rounded-md border border-solid border-gray-600"
+    : "bg-[#111827] p-4 sm:p-6 rounded-md";
 
   return (
     <SkeletonTheme baseColor="#374151" highlightColor="#4B5563">
       <div className={classname}>
-        <div className="flex justify-between">
-          <h1 className="text-gray-50 text-xl ps-14 pb-10">
+        {/* Header */}
+        <div className="flex justify-between flex-wrap gap-2">
+          <h1 className="text-gray-50 text-lg sm:text-xl ps-2 sm:ps-6 pb-6 sm:pb-10">
             {loading ? <Skeleton width={120} height={24} /> : "Performance"}
           </h1>
           {presentDay && (
-            <h1 className="text-gray-50 text-xl ps-14 pb-10 pe-10">
+            <h1 className="text-gray-50 text-lg sm:text-xl pe-2 sm:pe-6 pb-6 sm:pb-10">
               {loading ? (
                 <Skeleton width={80} height={24} />
               ) : (
@@ -59,7 +60,8 @@ const Chart = ({ data, presentDay, border = false }) => {
           )}
         </div>
 
-        <div style={{ width: "100%", height: "36vh" }}>
+        {/* Chart Section */}
+        <div className="w-full h-[30vh] sm:h-[31vh] lg:h-[31vh]">
           {loading ? (
             <Skeleton height={"100%"} width={"100%"} />
           ) : (

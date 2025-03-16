@@ -14,7 +14,7 @@ import ChallengeDataModalFromId from "../ChallengeDataModalFromId";
 const Challenges = () => {
   const [data, setData] = useState([]);
   const [aimData, setAim] = useState("");
-  const [loading, setLoading] = useState(true); // State for controlling loading
+  const [loading, setLoading] = useState(true);
   const [showDelteModal, setDeleteModal] = useState(false);
   const [deleteChallengeId, setDeleteChallengeId] = useState("");
   const [challengeModal, toggleChalengeModal] = useState(false);
@@ -35,7 +35,7 @@ const Challenges = () => {
     const fetchChallenges = async () => {
       console.log("Fetching challenges");
       try {
-        setLoading(true); // Start loading
+        setLoading(true);
         const response = await getChallenges();
         setTimeout(() => {
           if (response) {
@@ -46,7 +46,7 @@ const Challenges = () => {
             }));
             setData(formattedResponse);
           }
-          setLoading(false); // Stop loading after delay
+          setLoading(false);
         }, 2000);
       } catch (error) {
         console.error("Error fetching challenges:", error);
@@ -81,7 +81,6 @@ const Challenges = () => {
     toast.success("Updated Successfully");
   };
 
-  // Skeleton loaders for challenge cards
   const ChallengeCardSkeleton = () => (
     <div className="bg-gray-800 rounded-lg p-4 m-2">
       <Skeleton
@@ -107,9 +106,8 @@ const Challenges = () => {
     </div>
   );
 
-  // Skeleton loader for Note component
   const NoteSkeleton = () => (
-    <div className="bg-gray-900 rounded-xl p-6 w-[25vw] min-h-[70vh]">
+    <div className="bg-gray-900 rounded-xl p-6 w-full h-full">
       <Skeleton
         height={30}
         width="70%"
@@ -148,13 +146,11 @@ const Challenges = () => {
     </div>
   );
 
-  //getting challenge id from the challengeModal component
   const getChallengeId = (challengeId) => {
     setDeleteChallengeId(challengeId);
     setDeleteModal(true);
   };
 
-  // Handling delete challenge
   const handleDeleteChallenge = async () => {
     const challengeId = deleteChallengeId;
     await deleteChallenge(challengeId);
@@ -177,79 +173,87 @@ const Challenges = () => {
       console.error("Error fetching challenge data:", error);
     }
 
-    setLoading(false); // Stop loading only after API response is handled
+    setLoading(false);
   };
 
   return (
-    <div className="w-full h-screen bg-[#080C18] p-10 pt-4">
-      <div className="flex justify-between">
-        <h1 className="text-gray-50 text-2xl">CHALLENGES</h1>
+    <div className="w-full min-h-screen bg-[#080C18] p-4 md:p-6 lg:p-10 pt-4 overflow-auto">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-0">
+        <h1 className="text-gray-50 text-xl md:text-2xl mb-4 sm:mb-0">
+          CHALLENGES
+        </h1>
         <button
           onClick={() => toggleChalengeModal(true)}
-          className="text-gray-200 hover:text-white transition duration-300 cursor-pointer bg-indigo-600 rounded-xl w-17 px-4 py-2 font-medium"
+          className="text-gray-200 hover:text-white transition duration-300 cursor-pointer bg-indigo-600 rounded-xl w-full sm:w-auto px-4 py-2 font-medium"
         >
           Add
         </button>
       </div>
-      <div className="flex mt-8">
-        <div className="bg-gray-900 mr-7 min-h-[70vh] max-h-[80vh] min-w-[62vw] max-w-[65vw] p-6 rounded-xl grid grid-cols-3 items-center overflow-y-scroll custom-scrollbar">
-          {loading || isLoading ? (
-            // Showing skeleton loaders while loading
-            Array(6)
-              .fill()
-              .map((_, index) => (
-                <ChallengeCardSkeleton key={`skeleton-${index}`} />
+
+      <div className="flex flex-col lg:flex-row mt-4 lg:mt-8 gap-6">
+        {/* Challenge Cards Container */}
+        <div className="bg-gray-900 min-h-[50vh] lg:min-h-[70vh] w-full lg:w-2/3 p-4 md:p-6 rounded-xl overflow-y-auto custom-scrollbar">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {loading || isLoading ? (
+              Array(6)
+                .fill()
+                .map((_, index) => (
+                  <ChallengeCardSkeleton key={`skeleton-${index}`} />
+                ))
+            ) : data.length === 0 ? (
+              <h1 className="text-xl text-gray-200 font-semibold col-span-full">
+                No challenges found. Create your first challenge!
+              </h1>
+            ) : (
+              data.map((eachItem) => (
+                <ChallengeCard
+                  challengeDetails={eachItem}
+                  key={eachItem.challengeId}
+                  getChallengeId={getChallengeId}
+                  showChallengeDataModal={onClickShowChallengeDataModal}
+                />
               ))
-          ) : error ? (
-            <h1 className="text-xl text-gray-200 font-semibold absolute">
-              Please start a challenge to show the desired data!
-            </h1>
-          ) : data.length === 0 ? (
-            <h1 className="text-xl text-gray-200 font-semibold absolute">
-              No challenges found. Create your first challenge!
-            </h1>
+            )}
+          </div>
+        </div>
+
+        {/* Note Component */}
+        <div className="w-full lg:w-1/3 h-[50vh] lg:h-auto">
+          {loading || isLoading ? (
+            <NoteSkeleton />
           ) : (
-            data.map((eachItem) => (
-              <ChallengeCard
-                challengeDetails={eachItem}
-                key={eachItem.challengeId}
-                getChallengeId={getChallengeId}
-                showChallengeDataModal={onClickShowChallengeDataModal}
-              />
-            ))
+            <Note achieve={aimData} setAimData={setAimData} />
           )}
         </div>
-        {loading || isLoading ? (
-          <NoteSkeleton />
-        ) : (
-          <Note achieve={aimData} setAimData={setAimData} />
-        )}
       </div>
+
       {challengeModal && (
         <ChallengeModal
           onCloseChallengeModal={() => toggleChalengeModal(false)}
         />
       )}
-      {/* Delete challenge modal */}
 
+      {/* Delete challenge modal */}
       <AnimatePresence>
         {showDelteModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
             onClick={() => setDeleteModal(false)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-gray-800 rounded-lg p-6 max-w-sm w-full mx-4"
+              className="bg-gray-800 rounded-lg p-4 md:p-6 max-w-sm w-full mx-4"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-semibold text-white">Delete</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-white">
+                  Delete
+                </h3>
                 <button
                   onClick={() => setDeleteModal(false)}
                   className="p-1 rounded-full hover:bg-gray-700 transition-colors"
@@ -263,13 +267,13 @@ const Challenges = () => {
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setDeleteModal(false)}
-                  className="px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-600 transition-colors"
+                  className="px-3 py-1 md:px-4 md:py-2 rounded-md bg-gray-700 text-white hover:bg-gray-600 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleDeleteChallenge}
-                  className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors"
+                  className="px-3 py-1 md:px-4 md:py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors"
                 >
                   Delete
                 </button>
@@ -284,7 +288,7 @@ const Challenges = () => {
         )}
       </AnimatePresence>
 
-      {/* On click challenge Card show challenge data */}
+      {/* Challenge data modal */}
       {showChallengeDataModalFromId && !loading && challengeDataFromId && (
         <ChallengeDataModalFromId
           data={challengeDataFromId}
