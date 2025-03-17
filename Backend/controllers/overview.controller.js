@@ -166,17 +166,36 @@ export const updateTitle = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Update failed!" });
     }
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Challenge title updated!",
-        updatedChallenge: response,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Challenge title updated!",
+      updatedChallenge: response,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
       message: error.message || "Error while updating title!",
     });
+  }
+};
+
+export const changeStatus = async (req, res) => {
+  try {
+    const { status, challengeId } = req.body;
+
+    const response = await Challenge.updateOne(
+      { _id: challengeId },
+      { $set: { status: status } }
+    );
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.log("Error while changing status ", error.message);
+    res
+      .status(400)
+      .json({
+        success: false,
+        message: error.message || "Error while changing status",
+      });
   }
 };

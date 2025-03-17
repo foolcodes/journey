@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { FaEnvelope } from "react-icons/fa6";
 import { useAuthStore } from "../../store/authStore";
 import { Loader } from "lucide-react";
+import AOS from "aos";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,13 @@ const Register = () => {
   const { signup, isLoading, error } = useAuthStore();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800, // or any custom duration you prefer
+      once: true, // ensures animation happens once
+    });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

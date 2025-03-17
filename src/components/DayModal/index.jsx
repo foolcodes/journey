@@ -1,12 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { X, Hourglass, Loader } from "lucide-react";
 import { useOverviewStore } from "../../store/overviewStore";
 import toast from "react-hot-toast";
+import AOS from "aos";
 
-const DayModal = ({ onClose, onAddDailyData, presentDay }) => {
+const DayModal = ({ onClose, presentDay }) => {
   const [topics, onSetTopics] = useState("");
   const [hours, onSetHours] = useState("");
   const { addDay, isLoading, error } = useOverviewStore();
+
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
 
   const onSubmitAddDay = async (event) => {
     event.preventDefault();

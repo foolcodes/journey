@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "../../store/authStore";
 import { Loader } from "lucide-react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +15,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const { login, isLoading, error } = useAuthStore();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800, // or any custom duration you prefer
+      once: true, // ensures animation happens once
+    });
+  }, []);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();

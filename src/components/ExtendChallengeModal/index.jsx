@@ -2,7 +2,12 @@ import { useState } from "react";
 import { X, Calendar, PlusCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const ExtendChallengeModal = ({ onClose, onSubmit, challengeTitle }) => {
+const ExtendChallengeModal = ({
+  onClose,
+  onSubmit,
+  challengeTitle,
+  showModalFalse,
+}) => {
   const [additionalDays, setAdditionalDays] = useState(0);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -48,7 +53,7 @@ const ExtendChallengeModal = ({ onClose, onSubmit, challengeTitle }) => {
                   </h2>
                 </div>
                 <button
-                  onClick={onClose}
+                  onClick={showModalFalse}
                   className="p-2 rounded-full hover:bg-gray-800 transition-colors"
                   aria-label="Close"
                 >
@@ -147,7 +152,7 @@ const ExtendChallengeModal = ({ onClose, onSubmit, challengeTitle }) => {
                 days.
               </p>
               <button
-                onClick={onClose}
+                onClick={showModalFalse}
                 className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
               >
                 Done

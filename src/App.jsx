@@ -1,10 +1,4 @@
-import {
-  replace,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { Navigate } from "react-router-dom";
 
@@ -24,30 +18,29 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import NotFound from "./components/NotFound";
 const RedirectAuthenticatedUser = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
-  const navigate = useNavigate();
+  const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
 
-  useEffect(() => {
-    if (isAuthenticated && user?.isVerified) {
-      navigate("/overview", { replace: true });
-    }
-  }, [isAuthenticated, user, navigate]);
+  if (isCheckingAuth) {
+    return <Loading />; // Prevent flashing blank or wrong screens
+  }
+
+  if (isAuthenticated && user?.isVerified) {
+    return <Navigate to="/overview" replace />;
+  }
 
   return children;
 };
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      return navigate("/", { replace: true });
-    }
-    if (!user.isVerified) {
-      return navigate("/verify-email", { replace: true });
-    }
-  }, [isAuthenticated, user]);
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  if (!user?.isVerified) {
+    return <Navigate to="/verify-email" replace />;
+  }
+
   return children;
 };
 

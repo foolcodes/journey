@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { X, CalendarDays, Loader } from "lucide-react";
 import { useChallengeStore } from "../../store/challengesStore";
 import toast from "react-hot-toast";
+import AOS from "aos";
 
 const ChallengeModal = ({ onCloseChallengeModal }) => {
   const [noOfDays, setDays] = useState("");
@@ -10,6 +11,10 @@ const ChallengeModal = ({ onCloseChallengeModal }) => {
   const [currentDay, setCurrentDay] = useState("");
 
   const { addChallenge, isLoading } = useChallengeStore();
+
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
 
   const onSubmitAddChallenge = async (event) => {
     event.preventDefault();
@@ -39,7 +44,7 @@ const ChallengeModal = ({ onCloseChallengeModal }) => {
       ref={modalRef}
       onClick={closeChallengeModal}
       data-aos="fade-up"
-      className="fixed inset-0 bg-black/10 backdrop-blur-sm z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-black/10 backdrop-blur-sm z-100 flex items-center justify-center"
     >
       <div className="flex flex-col">
         <button

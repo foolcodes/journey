@@ -183,7 +183,10 @@ const Challenges = () => {
           CHALLENGES
         </h1>
         <button
-          onClick={() => toggleChalengeModal(true)}
+          onClick={() => {
+            console.log("Cliked");
+            toggleChalengeModal(true);
+          }}
           className="text-gray-200 hover:text-white transition duration-300 cursor-pointer bg-indigo-600 rounded-xl w-full sm:w-auto px-4 py-2 font-medium"
         >
           Add
@@ -277,11 +280,6 @@ const Challenges = () => {
                 >
                   Delete
                 </button>
-                {error && (
-                  <p className="text-red-500 text-sm font-semibold mb-3">
-                    {error}
-                  </p>
-                )}
               </div>
             </motion.div>
           </motion.div>

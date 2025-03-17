@@ -90,4 +90,21 @@ export const useOverviewStore = create((set, get) => ({
       });
     }
   },
+
+  changeChallengeStatus: async (status, challengeId) => {
+    set({ isLoading: true, error: false });
+    try {
+      const response = await axios.post(`${API_URL}/change-status`, {
+        status,
+        challengeId,
+      });
+      set({ isLoading: false });
+    } catch (error) {
+      console.log("Error while changing status ", error.message);
+      set({
+        isLoading: false,
+        error: error.message || "Error while changing status",
+      });
+    }
+  },
 }));
