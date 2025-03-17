@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-const API_URL = "http://localhost:5000/challenges";
+const API_URL = "http://localhost:5000/api/challenges";
 
 axios.defaults.withCredentials = true;
 
