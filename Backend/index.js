@@ -24,11 +24,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/challenges", challengeRoutes);
 app.use("/api/overview", overviewRoutes);
 app.use("/api/profile", profileRoutes);
-app.use(express.static(path.join(_dirname, "/frontend/dist")));
+app.use(express.static(path.join(_dirname, "/Frontend/dist")));
 
 if (process.env.NODE_ENV === "production") {
   app.use("*", (_, res) => {
-    res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.resolve(_dirname, "Frontend", "dist", "index.html"));
   });
 }
 
