@@ -26,11 +26,9 @@ app.use("/api/overview", overviewRoutes);
 app.use("/api/profile", profileRoutes);
 app.use(express.static(path.join(_dirname, "/frontend/dist")));
 
-if (process.env.NODE_ENV === "production") {
-  app.use("*", (_, res) => {
+app.use("*", (_, res) => {
     res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
-  });
-}
+})
 
 const PORT = process.env.PORT || 5000;
 
