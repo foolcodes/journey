@@ -72,16 +72,15 @@ const Home = () => {
             >
               Start Tracking Now <ArrowRight className="ml-2 h-5 w-5" />
             </button>
-            <button className="bg-white/5 backdrop-blur-sm border border-white/10 text-neutral-100 px-8 py-4 rounded-lg font-medium hover:bg-white/10 transition-all">
-              Explore Features
-            </button>
           </div>
 
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="flex flex-col items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-              <span className="font-bold text-2xl text-white mb-1">100+</span>
+              <span className="text-white font-bold text-xl mb-1">
+                Create Your Own Coding Challenges
+              </span>
               <span className="text-neutral-400 text-sm">
-                Coding Challenges
+                Track and complete custom goals to boost your coding journey.
               </span>
             </div>
             <div className="flex flex-col items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
@@ -211,8 +210,8 @@ const Home = () => {
                   Smart Insights
                 </h3>
                 <p className="text-neutral-400">
-                  Get personalized recommendations and insights to improve your
-                  skills faster.
+                  Analyze your progress and discover patterns to help you grow
+                  as a developer.
                 </p>
               </div>
             </div>
@@ -226,8 +225,8 @@ const Home = () => {
                   Achievement System
                 </h3>
                 <p className="text-neutral-400">
-                  Stay motivated with badges, streaks, and milestones that
-                  showcase your journey.
+                  Stay motivated with streaks, and milestones that showcase your
+                  journey.
                 </p>
               </div>
             </div>
