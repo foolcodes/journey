@@ -77,19 +77,19 @@ const Home = () => {
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="flex flex-col items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
               <span className="text-white font-bold text-xl mb-1">
-                Create Your Own Coding Challenges
+                Coding Challenges
               </span>
-              <span className="text-neutral-400 text-sm">
+              <span className="text-neutral-400 text-sm text-center">
                 Track and complete custom goals to boost your coding journey.
               </span>
             </div>
-            <div className="flex flex-col items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+            <div className="flex flex-col justify-center items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
               <span className="font-bold text-2xl text-white mb-1">Easy</span>
               <span className="text-neutral-400 text-sm">
                 Progress Tracking
               </span>
             </div>
-            <div className="flex flex-col items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+            <div className="flex flex-col justify-center items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
               <span className="font-bold text-2xl text-white mb-1">Smart</span>
               <span className="text-neutral-400 text-sm">Analytics</span>
             </div>
