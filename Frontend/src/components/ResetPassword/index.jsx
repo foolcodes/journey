@@ -32,7 +32,6 @@ const ResetPassword = () => {
         navigate("/login");
       }, 2000);
     } catch (error) {
-      console.log("Error resetting password", error);
       toast.error(error.message || "Error resetting password");
     }
   };

@@ -38,7 +38,6 @@ export const useChallengeStore = create((set, get) => ({
       set({ isLoading: false, aim: response.data.aim });
       return response.data.aim;
     } catch (error) {
-      console.log("error fetching aim data");
       set({
         isLoading: false,
         error: error.message || "Error fetching aim message",
@@ -88,7 +87,6 @@ export const useChallengeStore = create((set, get) => ({
       }));
       return response.data;
     } catch (error) {
-      console.log("Error while deleting challenge", error);
       set({
         isLoading: false,
         error: error.response?.data?.message || "Error deleting challenge",
@@ -105,10 +103,6 @@ export const useChallengeStore = create((set, get) => ({
       return response.data;
     } catch (error) {
       set({ isLoading: false, error: error.message });
-      console.log(
-        "Error fetching challenge data with challenge id",
-        error.message
-      );
     }
   },
 
@@ -118,9 +112,7 @@ export const useChallengeStore = create((set, get) => ({
       const response = await axios.post(`${API_URL}/update-note`, {
         updatedNote,
       });
-      console.log(response);
     } catch (error) {
-      console.log("Error while updating aim", error);
       set({
         isLoading: false,
         error: error.message || "Challenge must be active to change the AIM!",

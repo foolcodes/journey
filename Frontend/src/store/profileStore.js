@@ -35,7 +35,6 @@ export const useProfileStore = create((set, get) => ({
       set({ isLoading: false });
       return response.data;
     } catch (error) {
-      console.log("Error while updating the profile details", error);
       set({
         isLoading: false,
         error: error.message || "Error while updating the profile details",

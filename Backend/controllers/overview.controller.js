@@ -32,11 +32,8 @@ export const getCurrentDay = async (req, res) => {
 
     const presentDay = todayDay - startDay + currentDay + 1;
 
-    console.log("present day is", presentDay);
-    console.log("Challenge duration is ", challengeDuration);
     res.status(200).json({ success: true, presentDay, challengeDuration });
   } catch (error) {
-    console.log("Error while calculating present day:", error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -81,7 +78,6 @@ export const addDay = async (req, res) => {
 
     res.status(200).json({ success: true, message: "Day added successfully!" });
   } catch (error) {
-    console.log("Error while adding the day!", error.message);
     res.status(400).json({ success: false, error: error.message });
   }
 };
@@ -133,7 +129,6 @@ export const getDaysData = async (req, res) => {
       monthlyHours,
     });
   } catch (error) {
-    console.log("Error while fetching challenge data!", error.message);
     res.status(400).json({
       success: false,
       error: error.message || "Error while fetching challenge data!",
@@ -190,12 +185,9 @@ export const changeStatus = async (req, res) => {
 
     res.status(200).json({ success: true });
   } catch (error) {
-    console.log("Error while changing status ", error.message);
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: error.message || "Error while changing status",
-      });
+    res.status(400).json({
+      success: false,
+      message: error.message || "Error while changing status",
+    });
   }
 };

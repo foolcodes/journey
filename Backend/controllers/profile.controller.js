@@ -10,10 +10,6 @@ export const updateDetails = async (req, res) => {
 
     const avatar = await uploadOnCloudinary(avatarLocalPath);
 
-    if (!avatar) {
-      console.log("Cannot upload on cloudinary!");
-    }
-
     // Create an object to store the fields that need to be updated
     const updatedFields = {};
 
@@ -39,7 +35,6 @@ export const updateDetails = async (req, res) => {
 
     res.status(200).json({ message: "Profile updated successfully." });
   } catch (error) {
-    console.error("Error updating profile:", error);
     res
       .status(500)
       .json({ message: "Something went wrong, please try again later." });

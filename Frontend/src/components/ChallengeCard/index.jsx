@@ -49,7 +49,6 @@ const ChallengeCard = ({
       setShowAbandonModal(false);
     } catch (error) {
       toast.error("Failed to abandon challenge");
-      console.error("Error abandoning challenge:", error);
     } finally {
       setIsSubmitting(false);
     }

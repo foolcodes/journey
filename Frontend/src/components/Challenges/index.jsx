@@ -33,7 +33,6 @@ const Challenges = () => {
 
   useEffect(() => {
     const fetchChallenges = async () => {
-      console.log("Fetching challenges");
       try {
         setLoading(true);
         const response = await getChallenges();
@@ -49,7 +48,6 @@ const Challenges = () => {
           setLoading(false);
         }, 2000);
       } catch (error) {
-        console.error("Error fetching challenges:", error);
         setLoading(false);
       }
     };
@@ -69,7 +67,6 @@ const Challenges = () => {
           setLoading(false);
         }, 2000);
       } catch (error) {
-        console.error("Error fetching aim:", error);
         setLoading(false);
       }
     };
@@ -169,9 +166,7 @@ const Challenges = () => {
       if (response) {
         setChallengeDataFromId(response.data);
       }
-    } catch (error) {
-      console.error("Error fetching challenge data:", error);
-    }
+    } catch (error) {}
 
     setLoading(false);
   };
@@ -184,7 +179,6 @@ const Challenges = () => {
         </h1>
         <button
           onClick={() => {
-            console.log("Cliked");
             toggleChalengeModal(true);
           }}
           className="text-gray-200 hover:text-white transition duration-300 cursor-pointer bg-indigo-600 rounded-xl w-full sm:w-auto px-4 py-2 font-medium"

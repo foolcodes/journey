@@ -60,9 +60,7 @@ const SignupVerification = () => {
       await verifyEmail(verificationCode);
       navigate("/overview");
       toast.success("Email verified successfully");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

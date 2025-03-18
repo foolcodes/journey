@@ -22,9 +22,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
 
   try {
     const response = await transporter.sendMail(mailOptions);
-    console.log("Email sent succesfully: ", response);
   } catch (error) {
-    console.log(`Error sending verification email: ${error}`);
     throw new Error(`Error sending verification email: ${error}`);
   }
 };
@@ -40,7 +38,6 @@ export const sendPasswordResetEmail = async (email, resetUrl) => {
   try {
     const response = await transporter.sendMail(mailOptions);
   } catch (error) {
-    console.log(`Error sending password reset email: ${error}`);
     throw new Error(`Error sending password reset email: ${error}`);
   }
 };
@@ -55,9 +52,7 @@ export const sendSuccessEmail = async (email) => {
   };
   try {
     const response = await transporter.sendMail(mailOptions);
-    console.log("Email sent succesfully: ", response);
   } catch (error) {
-    console.log(`Error sending password reset email: ${error}`);
     throw new Error(`Error sending password reset email: ${error}`);
   }
 };

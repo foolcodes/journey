@@ -58,9 +58,7 @@ const Overview = () => {
     // Find the latest entry date
     const latestEntry = data[data.length - 1];
     const latestEntryDate = new Date(latestEntry.createdAt);
-    console.log("latest Entry ", latestEntryDate);
     latestEntryDate.setHours(0, 0, 0, 0);
-    console.log("after setting hours ", latestEntryDate);
 
     // Check if the streak is still active (entry made today or yesterday)
     const yesterday = new Date(today);
@@ -68,8 +66,6 @@ const Overview = () => {
     const isActive =
       latestEntryDate.getTime() === today.getTime() ||
       latestEntryDate.getTime() === yesterday.getTime();
-
-    console.log("active ", isActive);
 
     // Calculate consecutive days
     let consecutiveDays = 1;
@@ -160,7 +156,6 @@ const Overview = () => {
       const presentDay = data.presentDay;
       const challengeDuration = data.challengeDuration;
       const response = await getChallengeData();
-      console.log("response is ", response);
 
       setChallengeId(response[0]?.challenge);
       const lastDay =

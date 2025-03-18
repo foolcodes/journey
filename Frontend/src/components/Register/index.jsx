@@ -6,6 +6,7 @@ import { FaEnvelope } from "react-icons/fa6";
 import { useAuthStore } from "../../store/authStore";
 import { Loader } from "lucide-react";
 import AOS from "aos";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -29,7 +30,7 @@ const Register = () => {
       await signup(email, password, name);
       navigate("/verify-email");
     } catch (error) {
-      console.log(error);
+      toast.error("Error while sigining you up!, please try again");
     }
   };
 

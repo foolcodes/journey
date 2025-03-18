@@ -64,7 +64,6 @@ const ShareModal = ({
       setScreenshotUrl(imageUrl);
       toast.success("Screenshot captured successfully!");
     } catch (error) {
-      console.error("Error capturing screenshot:", error);
       toast.error("Failed to capture screenshot");
     } finally {
       setIsCapturing(false);

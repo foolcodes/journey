@@ -33,7 +33,6 @@ export const useOverviewStore = create((set, get) => ({
         error:
           error.response?.data?.message || "Error while fetching current Day",
       });
-      console.log("Error while fetching current day");
     }
     return null;
   },
@@ -44,7 +43,6 @@ export const useOverviewStore = create((set, get) => ({
       await axios.post(`${API_URL}/add-day`, { day, hours, notes });
       set({ isLoading: false });
     } catch (error) {
-      console.log("Error while adding the day data!");
       const errorMessage =
         error.response?.data?.error ||
         error.response?.data?.message ||
@@ -103,7 +101,6 @@ export const useOverviewStore = create((set, get) => ({
       });
       set({ isLoading: false });
     } catch (error) {
-      console.log("Error while changing status ", error.message);
       set({
         isLoading: false,
         error: error.message || "Error while changing status",
