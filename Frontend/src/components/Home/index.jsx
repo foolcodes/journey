@@ -80,7 +80,7 @@ const Home = () => {
                 Coding Challenges
               </span>
               <span className="text-neutral-400 text-sm text-center">
-                Track and complete custom goals to boost your coding journey.
+                Personalized milestones
               </span>
             </div>
             <div className="flex flex-col justify-center items-center p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
