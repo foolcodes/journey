@@ -1,7 +1,10 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/profile";
+const API_URL =
+  import.meta.MODE === "development"
+    ? "http://localhost:5000/api/profile"
+    : "/api/profile";
 
 export const useProfileStore = create((set, get) => ({
   isLoading: false,

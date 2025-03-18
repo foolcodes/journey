@@ -3,7 +3,10 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_URL = "http://localhost:5000/api/overview";
+const API_URL =
+  import.meta.MODE === "development"
+    ? "http://localhost:5000/api/overview"
+    : "/api/overview";
 
 export const useOverviewStore = create((set, get) => ({
   isLoading: false,

@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import axios from "axios";
-const API_URL = "http://localhost:5000/api/challenges";
+const API_URL =
+  import.meta.MODE === "development"
+    ? "http://localhost:5000/api/challenges"
+    : "/api/challenges";
 
 axios.defaults.withCredentials = true;
 
