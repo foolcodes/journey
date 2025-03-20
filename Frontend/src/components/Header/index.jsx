@@ -1,29 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ShinyButton from "../ShinyButton/ShinyButton";
-import { FaCode, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import logo from "../../../assets/icon.png";
 
 const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-screen flex justify-between items-center p-4 pe-10 font-sans-serif">
-      <div className="flex text-white justify-center items-center ml-1 cursor-pointer">
-        <img src={logo} alt="logo" className="h-8 w-8 mr-3 object-contain" />
+    <header className="w-full flex flex-wrap sm:flex-nowrap justify-between items-center px-4 py-4 sm:px-10 font-sans bg-transparent">
+      {/* Logo & Title */}
+      <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer mb-3 sm:mb-0">
+        <img src={logo} alt="logo" className="h-8 w-8 object-contain" />
+        <h1 className="text-2xl sm:text-3xl font-extrabold gradient-text leading-tight">Journey</h1>
+      </div>
 
-        <h1 className="text-3xl font-extrabold gradient-text">Journey</h1>
-      </div>
-      <div className="flex">
-        <button 
-          className="flex items-center justify-center gap-1 bg-gradient-to-r from-purple-600/80 to-indigo-600/80 text-white px-3 py-1 rounded-md mr-4 hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 text-sm shadow-sm"
-          onClick={() => window.location.href = "https://github.com/foolcodes/journey"}
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+        <button
+          className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600/90 to-indigo-600/90 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 text-sm shadow-md w-full sm:w-auto"
+          onClick={() => window.open("https://github.com/foolcodes/journey", "_blank")}
         >
-          <FaStar className="text-yellow-300 text-xs" /> Star us
+          <FaStar className="text-yellow-300 text-sm" /> Star us
         </button>
-        <ShinyButton title={"Login"} onCLick={() => navigate("/login")} />
+        <ShinyButton title="Login" onCLick={() => navigate("/login")} />
       </div>
-    </div>
+    </header>
   );
 };
 
