@@ -64,8 +64,7 @@ Made with ❤️ by [Vedansh](https://github.com/foolcodes)
 ## 📫 Connect
 
 - 🌐 [Portfolio](https://www.vedansh.space)
-- 🐦 [Twitter](https://twitter.com/your-handle)
-- 💼 [LinkedIn](https://linkedin.com/in/your-profile)
+- 🐦 [Twitter](https://x.com/afoolcodes)
 
 ---
 
